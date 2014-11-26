@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>I.C.</title>
+        <h:outputStylesheet library="css" name="estilo.css"/>
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true">
+
+            <p:layoutUnit position="north" size="150" resizable="true" closable="true" collapsible="true">
+                <p:panel header="Minimização de função">
+                    <h:outputText value="Algoritmo genético para minimização da função: " />
+                    <br/>
+                    <h1>
+                        x&sup2; + y&sup2; 
+                    </h1>
+
+                </p:panel>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="south" size="20" closable="true" collapsible="true">
+                Gleywson Ribeiro - Analista de Sistemas
+            </p:layoutUnit>
+
+            
+            <p:layoutUnit position="center" size="600" header="Parâmetros" collapsible="false">
+                <p:panel>
+                    <h:form>
+                        <h:panelGrid columns="2">
+                            Tamanho da população:
+                            <p:inputText value=""/>
+
+                            Número de gerações:
+                            <p:inputText value=""/>
+                            
+                            Tamanho do Cromossomo:
+                            <h:panelGroup>
+                                <p:inputText id="tmc" value=""/>
+                                <p:slider for="tmc" step="2" minValue="2" maxValue="62"/>
+                            </h:panelGroup>
+
+
+                            Taxa de Cruzamento:
+                            <p:spinner value="" stepFactor="0.05" min="0" max="1"/>
+
+                            Taxa de mutação:
+                            <p:spinner value="" stepFactor="0.01" max="1" min="0"/>
+
+                            Crossover:
+                            <p:selectOneMenu value="">
+                                <f:selectItems value=""/>
+                            </p:selectOneMenu>
+
+                            Seleção:
+                            <p:selectOneMenu value="">
+                                <f:selectItems value=""/>
+                            </p:selectOneMenu>
+
+                            <p:commandButton action="#" value="Executar" ajax="false"/>
+
+                        </h:panelGrid>
+
+
+                    </h:form>
+                </p:panel>
+            </p:layoutUnit>
+           
+        </p:layout>
+    </h:body>
+</html>
+

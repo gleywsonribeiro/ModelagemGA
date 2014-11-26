@@ -1,0 +1,27 @@
+.ui-widget {
+    font-size: 12px !important;
+}
+.ui-layout-north {
+    z-index:20 !important;
+    overflow:visible !important;;
+}
+.ui-layout-north .ui-layout-unit-content {
+    overflow:visible !important;
+}
+.ui-widget-header {
+    text-align: center;
+    text-transform: uppercase;
+}
+.ui-datatable .ui-datatable-footer .footer-section {
+    text-align: left;
+}
+.logopm {  
+    background-image: url(../resources/imagens/logc.png) !important;  
+    width: 14px;
+    height: 18px;  
+    float: bottom;  
+    margin-right: 0px;
+}  
+.semBorda tr, .semBorda td {
+    border: none !important;
+}
