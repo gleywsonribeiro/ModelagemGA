@@ -5,12 +5,16 @@
  */
 package testes;
 
+import modelo.binario.Cromossomo;
+
 /**
  *
  * @author Gleywson
  */
 public class TestaCromossomo {
     public static void main(String[] args) {
-        
+        Cromossomo c = new Cromossomo(10);
+        System.out.println(c);
+        System.out.println(c.getFitness());
     }
 }
