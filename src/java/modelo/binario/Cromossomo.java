@@ -19,16 +19,17 @@ public class Cromossomo {
 
     private final float x[];
     private Gene[] genes;
-    private boolean mutante;
+    //Não vejo necessidade por enquanto de controlar um cromossomo mutante
+    //private boolean mutante;
     
-    private float limiteInferior;
-    private float limiteSuperior;
+    private final float limiteInferior;
+    private final float limiteSuperior;
 
     public Cromossomo(int tamanho) {
         limiteInferior = -2.048f;
         limiteSuperior = 2.048f;
         this.genes = new Gene[tamanho];
-        this.mutante = false;
+        //this.mutante = false;
         this.x = new float[2];
         initCromossomo();
         //initX();
@@ -84,25 +85,7 @@ public class Cromossomo {
             this.genes[i].setBit(gene);
         }
     }
-
-    public float getLimiteInferior() {
-        return limiteInferior;
-    }
-
-    public void setLimiteInferior(float LimiteInferior) {
-        this.limiteInferior = LimiteInferior;
-    }
-
-    public float getLimiteSuperior() {
-        return limiteSuperior;
-    }
-
-    public void setLimiteSuperior(float limiteSuperior) {
-        this.limiteSuperior = limiteSuperior;
-    }
-
-    
-    
+ 
     public float[] getX() {
         initX();
         return x;
@@ -120,13 +103,7 @@ public class Cromossomo {
         this.genes = genes;
     }
 
-    public boolean isMutante() {
-        return mutante;
-    }
-
-    public void setMutante(boolean mutante) {
-        this.mutante = mutante;
-    }
+   
 
     //A priori esse comportamento de cruzamento vai ficar na classe Populacao
     
