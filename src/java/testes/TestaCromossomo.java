@@ -14,7 +14,17 @@ import modelo.binario.Cromossomo;
 public class TestaCromossomo {
     public static void main(String[] args) {
         Cromossomo c = new Cromossomo(10);
+        c.setGenes("1111111111");
         System.out.println(c);
         System.out.println(c.getFitness());
+        
+        for(float i:c.getX()) {
+            System.out.println(i);
+        }
+        Cromossomo c2 = new Cromossomo(10);
+        c2.setGenes("11111111110");
+        
+        System.out.println(c.equals(c2));
+        
     }
 }
