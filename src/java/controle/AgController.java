@@ -15,7 +15,53 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean
 @RequestScoped
 public class AgController {
+    private int tamanhoPopulacao;
+    private int numeroGeracoes;
+    private int tamanhoCromossomo;
+    private float taxaDeMutacao;
+    private float taxaDeCruzamento;
+
+    public int getTamanhoPopulacao() {
+        return tamanhoPopulacao;
+    }
+
+    public void setTamanhoPopulacao(int tamanhoPopulacao) {
+        this.tamanhoPopulacao = tamanhoPopulacao;
+    }
+
+    public int getNumeroGeracoes() {
+        return numeroGeracoes;
+    }
+
+    public void setNumeroGeracoes(int numeroGeracoes) {
+        this.numeroGeracoes = numeroGeracoes;
+    }
+
+    public int getTamanhoCromossomo() {
+        return tamanhoCromossomo;
+    }
+
+    public void setTamanhoCromossomo(int tamanhoCromossomo) {
+        this.tamanhoCromossomo = tamanhoCromossomo;
+    }
+
+    public float getTaxaDeMutacao() {
+        return taxaDeMutacao;
+    }
+
+    public void setTaxaDeMutacao(float taxaDeMutacao) {
+        this.taxaDeMutacao = taxaDeMutacao;
+    }
+
+    public float getTaxaDeCruzamento() {
+        return taxaDeCruzamento;
+    }
+
+    public void setTaxaDeCruzamento(float taxaDeCruzamento) {
+        this.taxaDeCruzamento = taxaDeCruzamento;
+    }
     
+        
     /**
      * Creates a new instance of AgController
      * #{agController.ag.tamanhoPopulacao}
