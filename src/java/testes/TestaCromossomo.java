@@ -25,6 +25,6 @@ public class TestaCromossomo {
         c2.setGenes("11111111110");
         
         System.out.println(c.equals(c2));
-        
+      
     }
 }
