@@ -85,13 +85,13 @@ public class Cromossomo {
             this.genes[i].setBit(gene);
         }
     }
- 
+    //retorna o valor atual do cromossomo
     public float[] getX() {
         initX();
         return x;
     }
 
-    private int getTamanho() {
+    public int getTamanho() {
         return genes.length;
     }
 

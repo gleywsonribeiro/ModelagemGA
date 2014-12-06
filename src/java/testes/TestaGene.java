@@ -5,6 +5,7 @@
  */
 package testes;
 
+import java.util.Random;
 import modelo.binario.Gene;
 
 /**
@@ -14,21 +15,16 @@ import modelo.binario.Gene;
 public class TestaGene {
 
     public static void main(String[] args) {
-        Gene[] genes = new Gene[100];
+        Gene[] genes = new Gene[3];
         
         //inicializacao
         for (int i = 0; i < genes.length; i++) {
             genes[i] = new Gene();
             genes[i].mutacao(0.19f);
         }
-        int contador = 0;
-        for (Gene gene : genes) {
-            if(gene.isMutante()) {
-                contador++;
-            }
-        }
         
-        System.out.println(contador);
         
+        int pontoDeCorte = 1 + new Random().nextInt(genes.length - 1);
+        System.out.println(pontoDeCorte);
     }
 }
