@@ -40,7 +40,7 @@
                             Tamanho do Cromossomo:
                             <h:panelGroup>
                                 <p:inputText id="tmc" value="#{agController.tamanhoCromossomo}"/>
-                                <p:slider for="tmc" step="2" minValue="2" maxValue="62"/>
+                                <p:slider for="tmc" step="2" minValue="10" maxValue="50"/>
                             </h:panelGroup>
 
 
@@ -51,13 +51,13 @@
                             <p:spinner value="#{agController.taxaDeMutacao}" stepFactor="0.01" max="1" min="0"/>
 
                             Crossover:
-                            <p:selectOneMenu value="">
-                                <f:selectItems value=""/>
+                            <p:selectOneMenu value="#{agController.tipoCrossover}">
+                                <f:selectItems value="#{agController.valores}"/>
                             </p:selectOneMenu>
 
                             Seleção:
-                            <p:selectOneMenu value="">
-                                <f:selectItems value=""/>
+                            <p:selectOneMenu value="#{agController.selecao}">
+                                <f:selectItems value="#{agController.selecoes}"/>
                             </p:selectOneMenu>
 
                             <p:commandButton action="#" value="Executar" ajax="false"/>
@@ -69,7 +69,7 @@
                 </p:panel>
             </p:layoutUnit>
             <p:layoutUnit position="center" size="600" header="grafico" collapsible="false">
-                <p:chart type="line" model="#{graficoController.modeloGrafico}" style="height: 300px; width: 600px"/>
+                <p:chart type="line" model="#{agController.model}" style="height: 300px; width: 600px"/>
             </p:layoutUnit>
            
         </p:layout>

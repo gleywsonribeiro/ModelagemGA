@@ -5,12 +5,17 @@
  */
 package controle;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import modelo.binario.AlgoritmoGenetico;
 import modelo.binario.Selecao;
 import modelo.binario.TipoCrossover;
 import org.primefaces.model.chart.LineChartModel;
+import org.primefaces.model.chart.LineChartSeries;
 
 /**
  *
@@ -24,8 +29,43 @@ public class AgController {
     private int tamanhoCromossomo;
     private float taxaDeMutacao;
     private float taxaDeCruzamento;
+    private TipoCrossover tipoCrossover;
+    private Selecao selecao;
     
     private LineChartModel model;
+    
+    private List<TipoCrossover> crossovers;
+    private List<Selecao> selecoes;
+    private Map valores;
+    
+
+    public AgController() {
+        crossovers = new ArrayList<>();
+        crossovers.add(TipoCrossover.UM_PONTO);
+        crossovers.add(TipoCrossover.DOIS_PONTOS);
+        crossovers.add(TipoCrossover.UNIFORME);
+        
+        selecoes = new ArrayList<>();
+        selecoes.add(Selecao.ROLETA);
+        selecoes.add(Selecao.TORNEIO);
+        
+        valores = new HashMap();
+        valores.put("Dois Pontos", TipoCrossover.DOIS_PONTOS);
+        valores.put("Um Ponto", TipoCrossover.UM_PONTO);
+        valores.put("Uniforme", TipoCrossover.UNIFORME);
+        
+        
+        model = new LineChartModel();
+        LineChartSeries serie = new LineChartSeries("Queda Exponencial");
+        
+        for(int i = 0; i <= 40; i++) {
+            serie.set(i, Math.cos(i)*Math.exp(-i/10));
+        }
+        model.addSeries(serie);
+        
+    }
+    
+    
 
     public LineChartModel getModel() {
         return model;
@@ -72,12 +112,46 @@ public class AgController {
     public void setTaxaDeCruzamento(float taxaDeCruzamento) {
         this.taxaDeCruzamento = taxaDeCruzamento;
     }
+
+    public List<TipoCrossover> getCrossovers() {
+        return crossovers;
+    }
+
+    public List<Selecao> getSelecoes() {
+        return selecoes;
+    }
+
+    public Map getValores() {
+        return valores;
+    }
+
+    public TipoCrossover getTipoCrossover() {
+        return tipoCrossover;
+    }
+
+    public void setTipoCrossover(TipoCrossover tipoCrossover) {
+        this.tipoCrossover = tipoCrossover;
+    }
+
+    public Selecao getSelecao() {
+        return selecao;
+    }
+
+    public void setSelecao(Selecao selecao) {
+        this.selecao = selecao;
+    }
     
         
     
     public void execute() {
-        AlgoritmoGenetico ag = new AlgoritmoGenetico(tamanhoPopulacao, numeroGeracoes, tamanhoCromossomo, taxaDeMutacao, taxaDeCruzamento, Selecao.TORNEIO, TipoCrossover.UM_PONTO);
+        AlgoritmoGenetico ag = new AlgoritmoGenetico(tamanhoPopulacao, numeroGeracoes, tamanhoCromossomo, taxaDeMutacao, taxaDeCruzamento, selecao, tipoCrossover);
         ag.run();
+        LineChartSeries series = new LineChartSeries();
+        for (int i = 0; i <= ag.getMelhoresIndividuos().size(); i++) {
+            series.set(i, ag.getMelhoresIndividuos().get(i));
+        }
+        model.addSeries(series);
+        
     }
     
 }
