@@ -8,6 +8,7 @@ package controle;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import org.primefaces.model.chart.CartesianChartModel;
+import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
 
 /**
@@ -18,10 +19,10 @@ import org.primefaces.model.chart.LineChartSeries;
 @RequestScoped
 public class GraficoController {
 
-     private CartesianChartModel modeloGrafico;
+     private LineChartModel modeloGrafico;
     
     public GraficoController() {
-        modeloGrafico = new CartesianChartModel();
+        modeloGrafico = new LineChartModel();
         LineChartSeries serie = new LineChartSeries("Queda Exponencial");
         
         for(int i = 0; i <= 40; i++) {
@@ -30,11 +31,11 @@ public class GraficoController {
         modeloGrafico.addSeries(serie);
     }
 
-    public CartesianChartModel getModeloGrafico() {
+    public LineChartModel getModeloGrafico() {
         return modeloGrafico;
     }
 
-    public void setModeloGrafico(CartesianChartModel modeloGrafico) {
+    public void setModeloGrafico(LineChartModel modeloGrafico) {
         this.modeloGrafico = modeloGrafico;
     }
 }

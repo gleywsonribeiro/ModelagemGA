@@ -27,7 +27,7 @@
             </p:layoutUnit>
 
             
-            <p:layoutUnit position="center" size="600" header="Parâmetros" collapsible="false">
+            <p:layoutUnit position="west" size="400" header="Parâmetros" collapsible="false">
                 <p:panel>
                     <h:form>
                         <h:panelGrid columns="2">
@@ -67,6 +67,9 @@
 
                     </h:form>
                 </p:panel>
+            </p:layoutUnit>
+            <p:layoutUnit position="center" size="600" header="grafico" collapsible="false">
+                <p:chart type="line" model="#{graficoController.modeloGrafico}" style="height: 300px; width: 600px"/>
             </p:layoutUnit>
            
         </p:layout>
