@@ -7,6 +7,10 @@ package controle;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import modelo.binario.AlgoritmoGenetico;
+import modelo.binario.Selecao;
+import modelo.binario.TipoCrossover;
+import org.primefaces.model.chart.LineChartModel;
 
 /**
  *
@@ -20,6 +24,14 @@ public class AgController {
     private int tamanhoCromossomo;
     private float taxaDeMutacao;
     private float taxaDeCruzamento;
+    
+    private LineChartModel model;
+
+    public LineChartModel getModel() {
+        return model;
+    }
+    
+    
 
     public int getTamanhoPopulacao() {
         return tamanhoPopulacao;
@@ -62,21 +74,10 @@ public class AgController {
     }
     
         
-    /**
-     * Creates a new instance of AgController
-     * #{agController.ag.tamanhoPopulacao}
-     * #{agController.ag.numeroGeracoes}
-     * #{agController.ag.tamanhoCromossomo}
-     * #{agController.ag.taxaDeCruzamento}
-     * #{agController.ag.taxaDeMutacao}
-     * #{agController.ag.tipoCrossover}
-     * #{agController.crossovers}
-     * #{agController.ag.selecao}
-     * #{agController.selecoes}
-     * #{agController.ag.run()}
-     * 
-     */
-    public AgController() {
+    
+    public void execute() {
+        AlgoritmoGenetico ag = new AlgoritmoGenetico(tamanhoPopulacao, numeroGeracoes, tamanhoCromossomo, taxaDeMutacao, taxaDeCruzamento, Selecao.TORNEIO, TipoCrossover.UM_PONTO);
+        ag.run();
     }
     
 }

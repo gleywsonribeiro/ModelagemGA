@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -40,7 +41,6 @@ public class Populacao {
         initPopulacao(tamanhoCromo);
         this.tipoCrossover = TipoCrossover.UM_PONTO;
         this.selecao = Selecao.TORNEIO;
-
     }
 
     //passo o tamanho que cada cromossomo vai ter. Esse parametro eh passado 
@@ -59,7 +59,7 @@ public class Populacao {
 
         //se o elitismo foi setado como verdadeiro, serao escolhidos os melhores
         //individuos para passarem direto para a proxima geracao
-        if (this.elitismo) {
+        if (isElitismo()) {
             //aqui acontece o elitismo
             Cromossomo[] elite = new Cromossomo[2];
             for (int i = 0; i < 2; i++) {
@@ -79,6 +79,7 @@ public class Populacao {
                 //individuos.removeAll(Arrays.asList(cromossomos));
             }
         }
+
         individuos.clear();
         individuos.addAll(temp);
         temp.clear();
@@ -170,7 +171,6 @@ public class Populacao {
 //        while (it.hasNext()) {
 //            somatorioFitComplement += it.next().getFitComplement(somatorioFitness);
 //        }
-
         Iterator<Cromossomo> it2 = individuos.iterator();
         while (it2.hasNext()) {
             Cromossomo individuo = it2.next();
@@ -179,7 +179,7 @@ public class Populacao {
                 individuo
             });
 
-            acumulado += individuo.getFitness()/ somatorioFitness;
+            acumulado += individuo.getFitness() / somatorioFitness;
         }
         double sorteio = Math.random();
 
@@ -246,6 +246,29 @@ public class Populacao {
 
     public void setElitismo(boolean elitismo) {
         this.elitismo = elitismo;
+    }
+
+    public float getPiorIndividuo() {
+        Cromossomo pior = null;
+        float valor = Float.MIN_VALUE;
+        Iterator<Cromossomo> iterator = individuos.iterator();
+
+        while (iterator.hasNext()) {
+            Cromossomo cromossomo = iterator.next();
+            if (cromossomo.getFitness() > valor) {
+                valor = cromossomo.getFitness();
+                pior = cromossomo;
+            }
+        }
+        return pior.getFitness();
+    }
+
+    public float getMelhorIndividuo() {
+        return elitismo().getFitness();
+    }
+
+    public float getDesvioPadrao() {
+        return 0;
     }
 
 }
