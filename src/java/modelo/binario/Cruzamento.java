@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public class Cruzamento {
 
-    public static Cromossomo[] cruza(Cromossomo c1, Cromossomo c2, float txCruzamento, float TxMutacao, TipoCrossover crossover) {
+    public static Cromossomo[] cruza(Cromossomo c1, Cromossomo c2, float TxMutacao, TipoCrossover crossover) {
         //Variavel usada para sorteios aletorios
         Random random = new Random();
         //variavel usada para armazenar o comprimento dos cromossomos, usada sempre que necessario
@@ -92,11 +92,10 @@ public class Cruzamento {
 
                 paiSement[2] = c1.toString().substring(cortes[1], comprimentoCromossomo);
                 maeSement[2] = c2.toString().substring(cortes[1], comprimentoCromossomo);
-                
+
                 //array de string que vai fazer receber as combinacoes de locus
                 String[] stringFilhos = new String[2];
-                
-                
+
                 //Combinacao ocorrendo aqui
                 for (int index = 0; index < paiSement.length; index++) {
                     if (index % 2 == 0) {
@@ -115,6 +114,12 @@ public class Cruzamento {
                 break;
             default:
                 System.err.println("Algo errado no tipo de crossover!");
+        }
+
+        for (Cromossomo i : filhos) {
+            for (Gene gene : i.genes) {
+                gene.mutacao(TxMutacao);
+            }
         }
         return filhos;
     }

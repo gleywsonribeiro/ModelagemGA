@@ -44,10 +44,11 @@ public class Casal {
         this.tipoCrossover = tipoCrossover;
     }
 
-//    public Cromossomo[] cruza(float taxaDeMutacao) {
-//        return pai.crossover(mae, taxaDeMutacao, tipoCrossover);
-//    }
+    public Cromossomo[] cruza(float taxaDeMutacao) {
+        return Cruzamento.cruza(pai, mae, taxaDeMutacao, tipoCrossover);
+    }
 
+    
     public Cromossomo[] getConjuges() {
         Cromossomo[] pais = {pai, mae};
         return pais;

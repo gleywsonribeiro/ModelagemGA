@@ -18,7 +18,7 @@ import java.util.List;
 public class Cromossomo {
 
     private final float x[];
-    private Gene[] genes;
+    Gene[] genes;
     //Não vejo necessidade por enquanto de controlar um cromossomo mutante
     //private boolean mutante;
     
