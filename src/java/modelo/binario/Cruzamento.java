@@ -117,7 +117,7 @@ public class Cruzamento {
         }
 
         for (Cromossomo i : filhos) {
-            for (Gene gene : i.genes) {
+            for (Gene gene : i.getGenes()) {
                 gene.mutacao(TxMutacao);
             }
         }
