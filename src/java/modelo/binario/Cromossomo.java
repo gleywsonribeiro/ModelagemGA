@@ -8,12 +8,17 @@ package modelo.binario;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import static java.lang.Math.*;
 
 /**
  *
  * @author Gleywson
- * Cromossomo modelado para a funcao: x^2+y^2
+ * Cromossomo modelado para a funcao de ACKLEY: 
+ * a = 20;
+ * b = 0.2;
+ * c = 2*pi;
  * 
+ * Z = -a*exp(-b * sqrt((X.^2+Y.^2)/2)) - exp((cos(c*X) + cos(c*Y))/2) + a + exp(1);
  */
 public class Cromossomo {
 
@@ -26,8 +31,8 @@ public class Cromossomo {
     private final float limiteSuperior;
 
     public Cromossomo(int tamanho) {
-        limiteInferior = -2.048f;
-        limiteSuperior = 2.048f;
+        limiteInferior = -32.768f;
+        limiteSuperior = 32.768f;
         this.genes = new Gene[tamanho];
         //this.mutante = false;
         this.x = new float[2];
@@ -104,11 +109,14 @@ public class Cromossomo {
     }
 
     public float getFitness() {
-        double f_x;
-        //f_x = 100 * Math.pow((x[1] - Math.pow(x[0], 2)), 2) + Math.pow(1 - x[0], 2);
+        double z;
+        double a = 20;
+        double b = 0.2;
+        double c = 2*Math.PI;
         
-       f_x = Math.pow(getX()[0], 2) + Math.pow(getX()[1], 2);
-        return (float) f_x;
+        z = -a*exp(-b * sqrt((pow(getX()[0],2) + pow(getX()[1],2))/2)) - exp((cos(c*getX()[0]) + cos(c*getX()[1]))/2) + a + exp(1);
+        
+        return (float) z;
     }
 
     //A priori, este metodo eh tb desnecessario

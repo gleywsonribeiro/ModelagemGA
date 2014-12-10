@@ -142,10 +142,10 @@ public class AgController {
         AlgoritmoGenetico ag = new AlgoritmoGenetico(tamanhoPopulacao, numeroGeracoes, tamanhoCromossomo, taxaDeMutacao, taxaDeCruzamento, selecao, tipoCrossover);
         ag.run();
         ChartSeries melhores = new ChartSeries();
-        melhores.setLabel("Melhores Indivíduos");
+        melhores.setLabel("Melhores");
         
         ChartSeries piores = new ChartSeries();
-        piores.setLabel("Piores Indivíduos");
+        piores.setLabel("Piores");
         
         ChartSeries desvioPadrao = new ChartSeries();
         desvioPadrao.setLabel("Desvio Padrão");
