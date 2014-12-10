@@ -267,8 +267,25 @@ public class Populacao {
         return elitismo().getFitness();
     }
 
+    public float getMedia() {
+        float somatorio = 0;
+        for (Cromossomo individuo : individuos) {
+            somatorio += individuo.getFitness();
+        }
+        float media = (somatorio / individuos.size());
+        return media;
+    }
+    
     public float getDesvioPadrao() {
-        return 0;
+        
+        float variancia = 0;
+        for (Cromossomo individuo : individuos) {
+            variancia += Math.pow(individuo.getFitness() - getMedia(), 2);
+        }
+        
+        float desvioPadrao = (float) Math.sqrt(variancia / (individuos.size() - 1));
+        
+        return desvioPadrao;
     }
 
 }

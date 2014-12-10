@@ -56,12 +56,6 @@ public class AgController {
         
         
         model = new LineChartModel();
-        LineChartSeries serie = new LineChartSeries("Queda Exponencial");
-        
-        for(int i = 0; i <= 40; i++) {
-            serie.set(i, Math.cos(i)*Math.exp(-i/10));
-        }
-        model.addSeries(serie);
         
     }
     
@@ -146,11 +140,23 @@ public class AgController {
     public void execute() {
         AlgoritmoGenetico ag = new AlgoritmoGenetico(tamanhoPopulacao, numeroGeracoes, tamanhoCromossomo, taxaDeMutacao, taxaDeCruzamento, selecao, tipoCrossover);
         ag.run();
-        LineChartSeries series = new LineChartSeries();
-        for (int i = 0; i <= ag.getMelhoresIndividuos().size(); i++) {
-            series.set(i, ag.getMelhoresIndividuos().get(i));
+        LineChartSeries melhores = new LineChartSeries();
+        LineChartSeries piores = new LineChartSeries();
+        LineChartSeries desvioPadrao = new LineChartSeries();
+        LineChartSeries media = new LineChartSeries();
+        
+        for (int i = 0; i < ag.getMelhoresIndividuos().size(); i++) {
+            melhores.set(i, ag.getMelhoresIndividuos().get(i));
+            piores.set(i, ag.getPioresIndividuos().get(i));
+            desvioPadrao.set(i, ag.getDesvioPadrao().get(i));
+            media.set(i, ag.getMedia().get(i));
+            
         }
-        model.addSeries(series);
+        model.addSeries(melhores);
+        model.addSeries(piores);
+        model.addSeries(desvioPadrao);
+        model.addSeries(media);
+        
         
     }
     

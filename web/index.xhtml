@@ -16,7 +16,8 @@
                     <h:outputText value="Algoritmo genético para minimização da função: " />
                     <br/>
                     <h1>
-                        x&sup2; + y&sup2; 
+                        x&sup2; + y&sup2;
+                        Falta o elitismo e trocar a função.
                     </h1>
 
                 </p:panel>
@@ -60,7 +61,7 @@
                                 <f:selectItems value="#{agController.selecoes}"/>
                             </p:selectOneMenu>
 
-                            <p:commandButton action="#" value="Executar" ajax="false"/>
+                            <p:commandButton actionListener="#{agController.execute()}" value="Executar" ajax="false" update="grafico"/>
 
                         </h:panelGrid>
 
@@ -69,8 +70,10 @@
                 </p:panel>
             </p:layoutUnit>
             <p:layoutUnit position="center" size="600" header="grafico" collapsible="false">
-                <p:chart type="line" model="#{agController.model}" style="height: 300px; width: 600px"/>
+                <p:chart id="grafico" type="line" model="#{agController.model}" style="width: 750px; height: 200px;"/>
             </p:layoutUnit>
+            
+            
            
         </p:layout>
     </h:body>

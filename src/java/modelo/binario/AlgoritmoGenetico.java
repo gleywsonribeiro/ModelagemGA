@@ -24,6 +24,7 @@ public class AlgoritmoGenetico {
     private final List<Float> pioresIndividuos;
     private final List<Float> melhoresIndividuos;
     private final List<Float> desvioPadrao;
+    private final List<Float> media;
 
     public AlgoritmoGenetico(int tamanhoPopulacao, int numeroGeracoes, int tamanhoCromossomo, float taxaMutacao, float taxaCruzamento, Selecao selecao, TipoCrossover tipoCrossover) {
         this.tamanhoPopulacao = tamanhoPopulacao;
@@ -36,6 +37,7 @@ public class AlgoritmoGenetico {
         pioresIndividuos = new ArrayList<>();
         melhoresIndividuos = new ArrayList<>();
         desvioPadrao = new ArrayList<>();
+        media = new ArrayList<>();
     }
     
     public void run() {
@@ -49,6 +51,7 @@ public class AlgoritmoGenetico {
             pioresIndividuos.add(p.getPiorIndividuo());
             melhoresIndividuos.add(p.getMelhorIndividuo());
             desvioPadrao.add(p.getDesvioPadrao());
+            media.add(p.getMedia());
         }
     }
 
@@ -62,6 +65,10 @@ public class AlgoritmoGenetico {
 
     public List<Float> getDesvioPadrao() {
         return desvioPadrao;
+    }
+
+    public List<Float> getMedia() {
+        return media;
     }
 
     
