@@ -14,6 +14,7 @@ import javax.faces.bean.RequestScoped;
 import modelo.binario.AlgoritmoGenetico;
 import modelo.binario.Selecao;
 import modelo.binario.TipoCrossover;
+import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
 
@@ -140,10 +141,18 @@ public class AgController {
     public void execute() {
         AlgoritmoGenetico ag = new AlgoritmoGenetico(tamanhoPopulacao, numeroGeracoes, tamanhoCromossomo, taxaDeMutacao, taxaDeCruzamento, selecao, tipoCrossover);
         ag.run();
-        LineChartSeries melhores = new LineChartSeries();
-        LineChartSeries piores = new LineChartSeries();
-        LineChartSeries desvioPadrao = new LineChartSeries();
-        LineChartSeries media = new LineChartSeries();
+        ChartSeries melhores = new ChartSeries();
+        melhores.setLabel("Melhores Indivíduos");
+        
+        ChartSeries piores = new ChartSeries();
+        piores.setLabel("Piores Indivíduos");
+        
+        ChartSeries desvioPadrao = new ChartSeries();
+        desvioPadrao.setLabel("Desvio Padrão");
+        
+        ChartSeries media = new ChartSeries();
+        media.setLabel("Média");
+        
         
         for (int i = 0; i < ag.getMelhoresIndividuos().size(); i++) {
             melhores.set(i, ag.getMelhoresIndividuos().get(i));
@@ -156,6 +165,9 @@ public class AgController {
         model.addSeries(piores);
         model.addSeries(desvioPadrao);
         model.addSeries(media);
+        model.setTitle("Desempenho por Gerações");
+        model.setLegendPosition("ne");
+        model.setAnimate(true);
         
         
     }
