@@ -14,9 +14,9 @@ import javax.faces.bean.RequestScoped;
 import modelo.binario.AlgoritmoGenetico;
 import modelo.binario.Selecao;
 import modelo.binario.TipoCrossover;
+import org.primefaces.model.chart.BubbleChartModel;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
-import org.primefaces.model.chart.LineChartSeries;
 
 /**
  *
@@ -34,6 +34,7 @@ public class AgController {
     private Selecao selecao;
     
     private LineChartModel model;
+    private BubbleChartModel posicao;
     
     private List<TipoCrossover> crossovers;
     private List<Selecao> selecoes;
@@ -57,7 +58,12 @@ public class AgController {
         
         
         model = new LineChartModel();
+        posicao = new BubbleChartModel();
         
+    }
+
+    public BubbleChartModel getPosicao() {
+        return posicao;
     }
     
     

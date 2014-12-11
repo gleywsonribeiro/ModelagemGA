@@ -16,8 +16,9 @@
                     <h:outputText value="Algoritmo genético para minimização da função: " />
                     <br/>
                     <h1>
-                        x&sup2; + y&sup2;
-                        Falta o elitismo e trocar a função.
+                        <b>
+                            Z = -20*exp(-0.2 * sqrt((X.^2+Y.^2)/2)) - exp((cos(2*pi*X) + cos(2*pi*Y))/2) + 0.2 + exp(1);
+                        </b>
                     </h1>
 
                 </p:panel>
@@ -27,7 +28,7 @@
                 Gleywson Ribeiro - Analista de Sistemas
             </p:layoutUnit>
 
-            
+
             <p:layoutUnit position="west" size="400" header="Parâmetros" collapsible="false">
                 <p:panel>
                     <h:form>
@@ -37,13 +38,12 @@
 
                             Número de gerações:
                             <p:inputText value="#{agController.numeroGeracoes}"/>
-                            
+
                             Tamanho do Cromossomo:
                             <h:panelGroup>
                                 <p:inputText id="tmc" value="#{agController.tamanhoCromossomo}"/>
                                 <p:slider for="tmc" step="2" minValue="10" maxValue="50"/>
                             </h:panelGroup>
-
 
                             Taxa de Cruzamento:
                             <p:spinner value="#{agController.taxaDeCruzamento}" stepFactor="0.05" min="0" max="1"/>
@@ -65,16 +65,13 @@
 
                         </h:panelGrid>
 
-
                     </h:form>
                 </p:panel>
             </p:layoutUnit>
             <p:layoutUnit position="center" size="600" header="grafico" collapsible="false">
                 <p:chart id="grafico" type="line" model="#{agController.model}" style="width: 900px; height: 400px;"/>
             </p:layoutUnit>
-            
-            
-           
+
         </p:layout>
     </h:body>
 </html>
