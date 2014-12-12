@@ -14,8 +14,7 @@ import java.util.Random;
  */
 public class Gene {
     private int bit;
-    //private boolean mutante;
-    //talez o atributo para controlar a mutacao seja desnecessario
+    
     public Gene() {
         this.bit = new Random().nextInt(2);
     }
@@ -24,15 +23,6 @@ public class Gene {
         return bit;
     }
 
-//    public boolean isMutante() {
-//        return mutante;
-//    }
-//
-//    public void setMutante(boolean mutante) {
-//        this.mutante = mutante;
-//    }
-
-    
     
     public void setBit(int bit) {
         if (bit > 1) {
@@ -53,7 +43,7 @@ public class Gene {
             } else {
                 this.setBit(0);
             }
-            //this.mutante = true;
+            
             return true;
         }
         return false;

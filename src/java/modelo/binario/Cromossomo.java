@@ -24,8 +24,6 @@ public class Cromossomo {
 
     private final float x[];
     private Gene[] genes;
-    //Não vejo necessidade por enquanto de controlar um cromossomo mutante
-    //private boolean mutante;
     
     private final float limiteInferior;
     private final float limiteSuperior;
@@ -34,10 +32,17 @@ public class Cromossomo {
         limiteInferior = -32.768f;
         limiteSuperior = 32.768f;
         this.genes = new Gene[tamanho];
-        //this.mutante = false;
         this.x = new float[2];
         initCromossomo();
-        //initX();
+    }
+    
+    //caso seja preciso setar na tela, esse construtor podera ser usado
+    public Cromossomo(int tamanho, float lmtSuperior, float lmtInferior) {
+        limiteInferior = lmtInferior;
+        limiteSuperior = lmtSuperior;
+        this.genes = new Gene[tamanho];
+        this.x = new float[2];
+        initCromossomo();
     }
 
     //inicializa o cromossomo para um estado consistente
@@ -119,11 +124,7 @@ public class Cromossomo {
         return (float) z;
     }
 
-    //A priori, este metodo eh tb desnecessario
-//    
-//    public double getFitComplement(double somatorio) {
-//        return (somatorio - getFitness());
-//    }
+    
 
     @Override
     public String toString() {
@@ -133,8 +134,7 @@ public class Cromossomo {
         }
 
         return saida;
-//        List saida = new ArrayList();
-//        saida.addAll(Arrays.asList(genes));
+
         
     }
     
@@ -162,5 +162,5 @@ public class Cromossomo {
             }
         }
         return true;
-    }
+    } 
 }

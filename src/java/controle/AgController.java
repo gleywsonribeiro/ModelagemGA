@@ -25,6 +25,7 @@ import org.primefaces.model.chart.LineChartModel;
 @ManagedBean
 @RequestScoped
 public class AgController {
+
     private int tamanhoPopulacao;
     private int numeroGeracoes;
     private int tamanhoCromossomo;
@@ -33,47 +34,30 @@ public class AgController {
     private boolean elitismo;
     private TipoCrossover tipoCrossover;
     private Selecao selecao;
-    
-    private LineChartModel model;
-    private BubbleChartModel posicao;
-    
-    private List<TipoCrossover> crossovers;
-    private List<Selecao> selecoes;
-    private Map valores;
-    
+
+    private long tempoExecucao;
+
+    private final LineChartModel model;
+
+    private final Map selecoes;
+    private final Map crossovers;
 
     public AgController() {
-        crossovers = new ArrayList<>();
-        crossovers.add(TipoCrossover.UM_PONTO);
-        crossovers.add(TipoCrossover.DOIS_PONTOS);
-        crossovers.add(TipoCrossover.UNIFORME);
-        
-        selecoes = new ArrayList<>();
-        selecoes.add(Selecao.ROLETA);
-        selecoes.add(Selecao.TORNEIO);
-        
-        valores = new HashMap();
-        valores.put("Dois Pontos", TipoCrossover.DOIS_PONTOS);
-        valores.put("Um Ponto", TipoCrossover.UM_PONTO);
-        valores.put("Uniforme", TipoCrossover.UNIFORME);
-        
-        
-        model = new LineChartModel();
-        posicao = new BubbleChartModel();
-        
-    }
+        selecoes = new HashMap();
+        selecoes.put("Roleta", Selecao.ROLETA);
+        selecoes.put("Torneio", Selecao.TORNEIO);
 
-    public BubbleChartModel getPosicao() {
-        return posicao;
+        crossovers = new HashMap();
+        crossovers.put("Dois Pontos", TipoCrossover.DOIS_PONTOS);
+        crossovers.put("Um Ponto", TipoCrossover.UM_PONTO);
+        crossovers.put("Uniforme", TipoCrossover.UNIFORME);
+
+        model = new LineChartModel();
     }
-    
-    
 
     public LineChartModel getModel() {
         return model;
     }
-    
-    
 
     public int getTamanhoPopulacao() {
         return tamanhoPopulacao;
@@ -115,16 +99,12 @@ public class AgController {
         this.taxaDeCruzamento = taxaDeCruzamento;
     }
 
-    public List<TipoCrossover> getCrossovers() {
-        return crossovers;
-    }
-
-    public List<Selecao> getSelecoes() {
+    public Map getSelecoes() {
         return selecoes;
     }
 
-    public Map getValores() {
-        return valores;
+    public Map getCrossovers() {
+        return crossovers;
     }
 
     public TipoCrossover getTipoCrossover() {
@@ -150,12 +130,16 @@ public class AgController {
     public void setElitismo(boolean elitismo) {
         this.elitismo = elitismo;
     }
-    
-    
-    
+
+    public float getTempoExecucao() {
+        return tempoExecucao;
+    }
+
     public void execute() {
+        long tempoInicial = System.currentTimeMillis();
+
         AlgoritmoGenetico ag = new AlgoritmoGenetico();
-        
+
         ag.setElitismo(elitismo);
         ag.setNumeroGeracoes(numeroGeracoes);
         ag.setSelecao(selecao);
@@ -164,27 +148,26 @@ public class AgController {
         ag.setTamanhoPopulacao(tamanhoPopulacao);
         ag.setTaxaCruzamento(taxaDeCruzamento);
         ag.setTaxaMutacao(taxaDeMutacao);
-        
+
         ag.run();
         ChartSeries melhores = new ChartSeries();
         melhores.setLabel("Melhores");
-        
+
         ChartSeries piores = new ChartSeries();
         piores.setLabel("Piores");
-        
+
         ChartSeries desvioPadrao = new ChartSeries();
         desvioPadrao.setLabel("Desvio Padrão");
-        
+
         ChartSeries media = new ChartSeries();
         media.setLabel("Média");
-        
-        
+
         for (int i = 0; i < ag.getMelhoresIndividuos().size(); i++) {
             melhores.set(i, ag.getMelhoresIndividuos().get(i));
             piores.set(i, ag.getPioresIndividuos().get(i));
             desvioPadrao.set(i, ag.getDesvioPadrao().get(i));
             media.set(i, ag.getMedia().get(i));
-            
+
         }
         model.addSeries(melhores);
         model.addSeries(piores);
@@ -193,8 +176,11 @@ public class AgController {
         model.setTitle("Desempenho por Gerações");
         model.setLegendPosition("ne");
         model.setAnimate(true);
-        
+        model.setSeriesColors("00cc00,cc0000,e5e55f,0099ff");
+
+        long tempoFinal = System.currentTimeMillis();
+        tempoExecucao = (tempoFinal - tempoInicial)/1000;
         
     }
-    
+
 }

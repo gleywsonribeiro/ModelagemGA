@@ -26,6 +26,7 @@
 
             <p:layoutUnit position="south" size="20" closable="true" collapsible="true">
                 Inteligência Computacional - Algoritmos Genéticos
+                <center><b>Tempo de execução: <h:outputText id="time" value="#{agController.tempoExecucao}"/> s</b></center>
             </p:layoutUnit>
 
 
@@ -53,18 +54,20 @@
 
                             Crossover:
                             <p:selectOneMenu value="#{agController.tipoCrossover}">
-                                <f:selectItems value="#{agController.valores}"/>
+                                <f:selectItems value="#{agController.crossovers}"/>
                             </p:selectOneMenu>
 
                             Seleção:
                             <p:selectOneMenu value="#{agController.selecao}">
                                 <f:selectItems value="#{agController.selecoes}"/>
                             </p:selectOneMenu>
-                            
+
                             Elitismo:
                             <p:selectBooleanCheckbox value="#{agController.elitismo}"/>
 
-                            <p:commandButton actionListener="#{agController.execute()}" value="Executar" ajax="false" update="grafico"/>
+                            <p:commandButton actionListener="#{agController.execute()}" value="Executar" ajax="false" update="grafico,time"/>
+
+                            
 
                         </h:panelGrid>
 
