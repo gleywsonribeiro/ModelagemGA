@@ -13,7 +13,7 @@
 
             <p:layoutUnit position="north" size="150" resizable="true" closable="true" collapsible="true">
                 <p:panel header="Minimização de função">
-                    <h:outputText value="Algoritmo genético para minimização da função: " />
+                    <h:outputText value="Algoritmo genético para minimização da função de ACKLEY: " />
                     <br/>
                     <h1>
                         <b>
@@ -25,7 +25,7 @@
             </p:layoutUnit>
 
             <p:layoutUnit position="south" size="20" closable="true" collapsible="true">
-                Gleywson Ribeiro - Analista de Sistemas
+                Inteligência Computacional - Algoritmos Genéticos
             </p:layoutUnit>
 
 
@@ -60,6 +60,9 @@
                             <p:selectOneMenu value="#{agController.selecao}">
                                 <f:selectItems value="#{agController.selecoes}"/>
                             </p:selectOneMenu>
+                            
+                            Elitismo:
+                            <p:selectBooleanCheckbox value="#{agController.elitismo}"/>
 
                             <p:commandButton actionListener="#{agController.execute()}" value="Executar" ajax="false" update="grafico"/>
 

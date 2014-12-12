@@ -26,14 +26,14 @@ public class AlgoritmoGenetico {
     private final List<Float> desvioPadrao;
     private final List<Float> media;
 
-    public AlgoritmoGenetico(int tamanhoPopulacao, int numeroGeracoes, int tamanhoCromossomo, float taxaMutacao, float taxaCruzamento, Selecao selecao, TipoCrossover tipoCrossover) {
-        this.tamanhoPopulacao = tamanhoPopulacao;
-        this.numeroGeracoes = numeroGeracoes;
-        this.tamanhoCromossomo = tamanhoCromossomo;
-        this.taxaMutacao = taxaMutacao;
-        this.taxaCruzamento = taxaCruzamento;
-        this.selecao = selecao;
-        this.tipoCrossover = tipoCrossover;
+    public AlgoritmoGenetico() {
+//        this.tamanhoPopulacao = tamanhoPopulacao;
+//        this.numeroGeracoes = numeroGeracoes;
+//        this.tamanhoCromossomo = tamanhoCromossomo;
+//        this.taxaMutacao = taxaMutacao;
+//        this.taxaCruzamento = taxaCruzamento;
+//        this.selecao = selecao;
+//        this.tipoCrossover = tipoCrossover;
         pioresIndividuos = new ArrayList<>();
         melhoresIndividuos = new ArrayList<>();
         desvioPadrao = new ArrayList<>();

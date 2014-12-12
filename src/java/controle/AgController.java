@@ -30,6 +30,7 @@ public class AgController {
     private int tamanhoCromossomo;
     private float taxaDeMutacao;
     private float taxaDeCruzamento;
+    private boolean elitismo;
     private TipoCrossover tipoCrossover;
     private Selecao selecao;
     
@@ -141,11 +142,29 @@ public class AgController {
     public void setSelecao(Selecao selecao) {
         this.selecao = selecao;
     }
+
+    public boolean isElitismo() {
+        return elitismo;
+    }
+
+    public void setElitismo(boolean elitismo) {
+        this.elitismo = elitismo;
+    }
     
-        
+    
     
     public void execute() {
-        AlgoritmoGenetico ag = new AlgoritmoGenetico(tamanhoPopulacao, numeroGeracoes, tamanhoCromossomo, taxaDeMutacao, taxaDeCruzamento, selecao, tipoCrossover);
+        AlgoritmoGenetico ag = new AlgoritmoGenetico();
+        
+        ag.setElitismo(elitismo);
+        ag.setNumeroGeracoes(numeroGeracoes);
+        ag.setSelecao(selecao);
+        ag.setTipoCrossover(tipoCrossover);
+        ag.setTamanhoCromossomo(tamanhoCromossomo);
+        ag.setTamanhoPopulacao(tamanhoPopulacao);
+        ag.setTaxaCruzamento(taxaDeCruzamento);
+        ag.setTaxaMutacao(taxaDeMutacao);
+        
         ag.run();
         ChartSeries melhores = new ChartSeries();
         melhores.setLabel("Melhores");
