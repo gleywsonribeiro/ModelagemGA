@@ -24,7 +24,7 @@
                 </p:panel>
             </p:layoutUnit>
 
-            <p:layoutUnit position="south" size="20" closable="true" collapsible="true">
+            <p:layoutUnit position="south" size="30" closable="true" collapsible="true">
                 Inteligência Computacional - Algoritmos Genético
             </p:layoutUnit>
 
@@ -79,10 +79,10 @@
                         <h:outputText value="#{agController.tempoExecucao} segundos"/>
                     </p:fieldset>
                     <p:fieldset legend="Melhor Fitness" style="margin-bottom:20px">
-                        <h:outputText value="#{agController.melhorFitnessEncontrado}"/>
+                        <h:outputText value="#{agController.melhorSolucaoEncontrada.fitness}"/>
                     </p:fieldset>
-                    <p:fieldset legend="Posição" style="margin-bottom:20px">
-                        <h:outputText value="#{agController.tempoExecucao} segundos"/>
+                    <p:fieldset legend="Posição Melhor Fitness" style="margin-bottom:20px">
+                        <h:outputText value="[#{agController.melhorSolucaoEncontrada.x[0]}, #{agController.melhorSolucaoEncontrada.x[1]}]"/>
                     </p:fieldset>
                 </p:panelGrid>
             </p:layoutUnit>

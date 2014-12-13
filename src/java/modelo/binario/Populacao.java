@@ -168,9 +168,7 @@ public class Populacao {
             somatorioFitness += i.next().getFitness();
         }
 
-//        while (it.hasNext()) {
-//            somatorioFitComplement += it.next().getFitComplement(somatorioFitness);
-//        }
+
         Iterator<Cromossomo> it2 = individuos.iterator();
         while (it2.hasNext()) {
             Cromossomo individuo = it2.next();
@@ -248,7 +246,7 @@ public class Populacao {
         this.elitismo = elitismo;
     }
 
-    public float getPiorIndividuo() {
+    public Cromossomo getPiorIndividuo() {
         Cromossomo pior = null;
         float valor = Float.MIN_VALUE;
         Iterator<Cromossomo> iterator = individuos.iterator();
@@ -260,11 +258,11 @@ public class Populacao {
                 pior = cromossomo;
             }
         }
-        return pior.getFitness();
+        return pior;
     }
 
-    public float getMelhorIndividuo() {
-        return elitismo().getFitness();
+    public Cromossomo getMelhorIndividuo() {
+        return elitismo();
     }
 
     public float getMedia() {

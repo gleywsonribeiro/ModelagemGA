@@ -21,8 +21,8 @@ public class AlgoritmoGenetico {
     private Selecao selecao;
     private TipoCrossover tipoCrossover;
     private boolean elitismo;
-    private final List<Float> pioresIndividuos;
-    private final List<Float> melhoresIndividuos;
+    private final List<Cromossomo> pioresIndividuos;
+    private final List<Cromossomo> melhoresIndividuos;
     private final List<Float> desvioPadrao;
     private final List<Float> media;
 
@@ -48,11 +48,11 @@ public class AlgoritmoGenetico {
         }
     }
 
-    public List<Float> getPioresIndividuos() {
+    public List<Cromossomo> getPioresIndividuos() {
         return pioresIndividuos;
     }
 
-    public List<Float> getMelhoresIndividuos() {
+    public List<Cromossomo> getMelhoresIndividuos() {
         return melhoresIndividuos;
     }
 

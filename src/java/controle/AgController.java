@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import modelo.binario.AlgoritmoGenetico;
+import modelo.binario.Cromossomo;
 import modelo.binario.Selecao;
 import modelo.binario.TipoCrossover;
 import org.primefaces.model.chart.BubbleChartModel;
@@ -89,8 +90,8 @@ public class AgController {
         media.setLabel("Média");
 
         for (int i = 0; i < ag.getMelhoresIndividuos().size(); i++) {
-            melhores.set(i, ag.getMelhoresIndividuos().get(i));
-            piores.set(i, ag.getPioresIndividuos().get(i));
+            melhores.set(i, ag.getMelhoresIndividuos().get(i).getFitness());
+            piores.set(i, ag.getPioresIndividuos().get(i).getFitness());
             desvioPadrao.set(i, ag.getDesvioPadrao().get(i));
             media.set(i, ag.getMedia().get(i));
 
@@ -109,19 +110,17 @@ public class AgController {
 
     }
     
-    public float getMelhorFitnessEncontrado() {
+    public Cromossomo getMelhorSolucaoEncontrada() {
         float melhorFit = Float.MAX_VALUE;
-        
-        for (float i:ag.getMelhoresIndividuos()) {
-            if(i < melhorFit) {
-                melhorFit = i;
+        Cromossomo temp = null;
+        for (Cromossomo i:ag.getMelhoresIndividuos()) {
+            
+            if(i.getFitness() < melhorFit) {
+                melhorFit = i.getFitness();
+                temp = i;
             }
         } 
-        return melhorFit;
+        return temp;
     }
-
-//    public String getPosicaoMelhorFitness() {
-//        String saida = ""+ag.get
-//    }
 
 }
