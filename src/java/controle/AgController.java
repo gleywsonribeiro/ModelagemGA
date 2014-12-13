@@ -26,15 +26,7 @@ import org.primefaces.model.chart.LineChartModel;
 @RequestScoped
 public class AgController {
 
-    private int tamanhoPopulacao;
-    private int numeroGeracoes;
-    private int tamanhoCromossomo;
-    private float taxaDeMutacao;
-    private float taxaDeCruzamento;
-    private boolean elitismo;
-    private TipoCrossover tipoCrossover;
-    private Selecao selecao;
-
+    private AlgoritmoGenetico ag;
     private long tempoExecucao;
 
     private final LineChartModel model;
@@ -43,6 +35,7 @@ public class AgController {
     private final Map crossovers;
 
     public AgController() {
+        ag = new AlgoritmoGenetico();
         selecoes = new HashMap();
         selecoes.put("Roleta", Selecao.ROLETA);
         selecoes.put("Torneio", Selecao.TORNEIO);
@@ -59,46 +52,6 @@ public class AgController {
         return model;
     }
 
-    public int getTamanhoPopulacao() {
-        return tamanhoPopulacao;
-    }
-
-    public void setTamanhoPopulacao(int tamanhoPopulacao) {
-        this.tamanhoPopulacao = tamanhoPopulacao;
-    }
-
-    public int getNumeroGeracoes() {
-        return numeroGeracoes;
-    }
-
-    public void setNumeroGeracoes(int numeroGeracoes) {
-        this.numeroGeracoes = numeroGeracoes;
-    }
-
-    public int getTamanhoCromossomo() {
-        return tamanhoCromossomo;
-    }
-
-    public void setTamanhoCromossomo(int tamanhoCromossomo) {
-        this.tamanhoCromossomo = tamanhoCromossomo;
-    }
-
-    public float getTaxaDeMutacao() {
-        return taxaDeMutacao;
-    }
-
-    public void setTaxaDeMutacao(float taxaDeMutacao) {
-        this.taxaDeMutacao = taxaDeMutacao;
-    }
-
-    public float getTaxaDeCruzamento() {
-        return taxaDeCruzamento;
-    }
-
-    public void setTaxaDeCruzamento(float taxaDeCruzamento) {
-        this.taxaDeCruzamento = taxaDeCruzamento;
-    }
-
     public Map getSelecoes() {
         return selecoes;
     }
@@ -107,28 +60,12 @@ public class AgController {
         return crossovers;
     }
 
-    public TipoCrossover getTipoCrossover() {
-        return tipoCrossover;
+    public AlgoritmoGenetico getAg() {
+        return ag;
     }
 
-    public void setTipoCrossover(TipoCrossover tipoCrossover) {
-        this.tipoCrossover = tipoCrossover;
-    }
-
-    public Selecao getSelecao() {
-        return selecao;
-    }
-
-    public void setSelecao(Selecao selecao) {
-        this.selecao = selecao;
-    }
-
-    public boolean isElitismo() {
-        return elitismo;
-    }
-
-    public void setElitismo(boolean elitismo) {
-        this.elitismo = elitismo;
+    public void setAg(AlgoritmoGenetico ag) {
+        this.ag = ag;
     }
 
     public float getTempoExecucao() {
@@ -137,17 +74,6 @@ public class AgController {
 
     public void execute() {
         long tempoInicial = System.currentTimeMillis();
-
-        AlgoritmoGenetico ag = new AlgoritmoGenetico();
-
-        ag.setElitismo(elitismo);
-        ag.setNumeroGeracoes(numeroGeracoes);
-        ag.setSelecao(selecao);
-        ag.setTipoCrossover(tipoCrossover);
-        ag.setTamanhoCromossomo(tamanhoCromossomo);
-        ag.setTamanhoPopulacao(tamanhoPopulacao);
-        ag.setTaxaCruzamento(taxaDeCruzamento);
-        ag.setTaxaMutacao(taxaDeMutacao);
 
         ag.run();
         ChartSeries melhores = new ChartSeries();
@@ -179,8 +105,23 @@ public class AgController {
         model.setSeriesColors("00cc00,cc0000,e5e55f,0099ff");
 
         long tempoFinal = System.currentTimeMillis();
-        tempoExecucao = (tempoFinal - tempoInicial)/1000;
-        
+        tempoExecucao = (tempoFinal - tempoInicial) / 1000;
+
     }
+    
+    public float getMelhorFitnessEncontrado() {
+        float melhorFit = Float.MAX_VALUE;
+        
+        for (float i:ag.getMelhoresIndividuos()) {
+            if(i < melhorFit) {
+                melhorFit = i;
+            }
+        } 
+        return melhorFit;
+    }
+
+//    public String getPosicaoMelhorFitness() {
+//        String saida = ""+ag.get
+//    }
 
 }

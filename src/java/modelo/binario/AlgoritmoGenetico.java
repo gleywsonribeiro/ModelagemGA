@@ -27,13 +27,6 @@ public class AlgoritmoGenetico {
     private final List<Float> media;
 
     public AlgoritmoGenetico() {
-//        this.tamanhoPopulacao = tamanhoPopulacao;
-//        this.numeroGeracoes = numeroGeracoes;
-//        this.tamanhoCromossomo = tamanhoCromossomo;
-//        this.taxaMutacao = taxaMutacao;
-//        this.taxaCruzamento = taxaCruzamento;
-//        this.selecao = selecao;
-//        this.tipoCrossover = tipoCrossover;
         pioresIndividuos = new ArrayList<>();
         melhoresIndividuos = new ArrayList<>();
         desvioPadrao = new ArrayList<>();
@@ -71,8 +64,6 @@ public class AlgoritmoGenetico {
         return media;
     }
 
-    
-    
     public boolean isElitismo() {
         return elitismo;
     }
@@ -136,8 +127,5 @@ public class AlgoritmoGenetico {
     public void setTipoCrossover(TipoCrossover tipoCrossover) {
         this.tipoCrossover = tipoCrossover;
     }
-    
-    
-    
     
 }

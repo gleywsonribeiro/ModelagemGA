@@ -15,11 +15,11 @@
                 <p:panel header="Minimização de função">
                     <h:outputText value="Algoritmo genético para minimização da função de ACKLEY: " />
                     <br/>
-                    <h1>
+                    <h4>
                         <b>
                             Z = -20*exp(-0.2 * sqrt((X^2+Y^2)/2)) - exp((cos(2*pi*X) + cos(2*pi*Y))/2) + 0.2 + exp(1)
                         </b>
-                    </h1>
+                    </h4>
 
                 </p:panel>
             </p:layoutUnit>
@@ -34,35 +34,35 @@
                     <h:form>
                         <h:panelGrid columns="2">
                             Tamanho da população:
-                            <p:inputText value="#{agController.tamanhoPopulacao}"/>
+                            <p:inputText value="#{agController.ag.tamanhoPopulacao}"/>
 
                             Número de gerações:
-                            <p:inputText value="#{agController.numeroGeracoes}"/>
+                            <p:inputText value="#{agController.ag.numeroGeracoes}"/>
 
                             Tamanho do Cromossomo:
                             <h:panelGroup>
-                                <p:inputText id="tmc" value="#{agController.tamanhoCromossomo}"/>
+                                <p:inputText id="tmc" value="#{agController.ag.tamanhoCromossomo}"/>
                                 <p:slider for="tmc" step="2" minValue="10" maxValue="50"/>
                             </h:panelGroup>
 
                             Taxa de Cruzamento:
-                            <p:spinner value="#{agController.taxaDeCruzamento}" stepFactor="0.05" min="0" max="1"/>
+                            <p:spinner value="#{agController.ag.taxaCruzamento}" stepFactor="0.05" min="0" max="1"/>
 
                             Taxa de mutação:
-                            <p:spinner value="#{agController.taxaDeMutacao}" stepFactor="0.01" max="1" min="0"/>
+                            <p:spinner value="#{agController.ag.taxaMutacao}" stepFactor="0.01" max="1" min="0"/>
 
                             Crossover:
-                            <p:selectOneMenu value="#{agController.tipoCrossover}">
+                            <p:selectOneMenu value="#{agController.ag.tipoCrossover}">
                                 <f:selectItems value="#{agController.crossovers}"/>
                             </p:selectOneMenu>
 
                             Seleção:
-                            <p:selectOneMenu value="#{agController.selecao}">
+                            <p:selectOneMenu value="#{agController.ag.selecao}">
                                 <f:selectItems value="#{agController.selecoes}"/>
                             </p:selectOneMenu>
 
                             Elitismo:
-                            <p:selectBooleanCheckbox value="#{agController.elitismo}"/>
+                            <p:selectBooleanCheckbox value="#{agController.ag.elitismo}"/>
 
                             <p:commandButton actionListener="#{agController.execute()}" value="Executar" ajax="false" update="grafico"/>
                         </h:panelGrid>
@@ -71,13 +71,15 @@
                 </p:panel>
             </p:layoutUnit>
             <p:layoutUnit position="center" size="600" header="grafico" collapsible="false">
-                <p:chart id="grafico" type="line" model="#{agController.model}" style="width: 100%; height: 300px;"/>
+                <p:panel>
+                    <p:chart id="grafico" type="line" model="#{agController.model}" style="width: 100%; height: 300px;"/>
+                </p:panel>
                 <p:panelGrid columns="3" style="width: 100%">
                     <p:fieldset legend="Tempo de Execução" style="margin-bottom:20px">
                         <h:outputText value="#{agController.tempoExecucao} segundos"/>
                     </p:fieldset>
                     <p:fieldset legend="Melhor Fitness" style="margin-bottom:20px">
-                        <h:outputText value="#{agController.tempoExecucao} segundos"/>
+                        <h:outputText value="#{agController.melhorFitnessEncontrado}"/>
                     </p:fieldset>
                     <p:fieldset legend="Posição" style="margin-bottom:20px">
                         <h:outputText value="#{agController.tempoExecucao} segundos"/>
