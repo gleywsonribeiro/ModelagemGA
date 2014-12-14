@@ -180,46 +180,70 @@ public class Populacao {
     }
 
     private Cromossomo roleta() {
-        double somatorioFitness = 0;
-        //double somatorioFitComplement = 0;
-        double acumulado = 0;
-        Cromossomo retorno = null;
-
-        Collection<Object[]> roleta = new ArrayList<>();
+        Random random = new Random();
+        float somatorioFitness = 0;
         Iterator<Cromossomo> i = individuos.iterator();
-        //Iterator<Cromossomo> it = individuos.iterator();
-
-        while (i.hasNext()) {
-            somatorioFitness += i.next().getFitness();
+        
+        while(i.hasNext()) {
+            somatorioFitness = i.next().getFitness();
         }
-
-        Iterator<Cromossomo> it2 = individuos.iterator();
-        while (it2.hasNext()) {
-            Cromossomo individuo = it2.next();
-            roleta.add(new Object[]{
-                acumulado, acumulado + individuo.getFitness() / somatorioFitness,
-                individuo
-            });
-
-            acumulado += individuo.getFitness() / somatorioFitness;
-        }
-        double sorteio = Math.random();
-
-        Iterator<Object[]> it3 = roleta.iterator();
-        while (it3.hasNext()) {
-            Object[] atual = it3.next();
-
-            double limiteInferior = ((Double) atual[0]);
-            double limiteSuperior = ((Double) atual[1]);
-            Cromossomo individuo = (Cromossomo) atual[2];
-
-            if (sorteio >= limiteInferior && sorteio < limiteSuperior) {
-                retorno = individuo;
+        float sementeFracionada = random.nextFloat();
+        int sementeInteira = random.nextInt(Math.round(somatorioFitness) + 1);
+        float sorteio = sementeFracionada * sementeInteira;
+        
+        Iterator<Cromossomo> it = individuos.iterator();
+        float s = 0;
+        Cromossomo felizardo = null;
+        while (it.hasNext()) {
+            Cromossomo next = it.next();
+            s += it.next().getFitness();
+            if(s >= sorteio) {
+                felizardo = next;
                 break;
             }
         }
-
-        return retorno;
+        return felizardo;
+//        double somatorioFitness = 0;
+//   
+//        double acumulado = 0;
+//        Cromossomo retorno = null;
+//
+//        Collection<Object[]> roleta = new ArrayList<>();
+//        Iterator<Cromossomo> i = individuos.iterator();
+//       
+//
+//        while (i.hasNext()) {
+//            somatorioFitness += i.next().getFitness();
+//        }
+//
+//
+//        Iterator<Cromossomo> it2 = individuos.iterator();
+//        while (it2.hasNext()) {
+//            Cromossomo individuo = it2.next();
+//            roleta.add(new Object[]{
+//                acumulado, acumulado + individuo.getFitness() / somatorioFitness,
+//                individuo
+//            });
+//
+//            acumulado += individuo.getFitness() / somatorioFitness;
+//        }
+//        double sorteio = Math.random();
+//
+//        Iterator<Object[]> it3 = roleta.iterator();
+//        while (it3.hasNext()) {
+//            Object[] atual = it3.next();
+//
+//            double limiteInferior = ((Double) atual[0]);
+//            double limiteSuperior = ((Double) atual[1]);
+//            Cromossomo individuo = (Cromossomo) atual[2];
+//
+//            if (sorteio >= limiteInferior && sorteio < limiteSuperior) {
+//                retorno = individuo;
+//                break;
+//            }
+//        }
+//
+//        return retorno;
     }
 
     private Cromossomo seleciona(Selecao selecao) {
