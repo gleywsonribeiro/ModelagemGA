@@ -5,9 +5,7 @@
  */
 package controle;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -15,7 +13,6 @@ import modelo.binario.AlgoritmoGenetico;
 import modelo.binario.Cromossomo;
 import modelo.binario.Selecao;
 import modelo.binario.TipoCrossover;
-import org.primefaces.model.chart.BubbleChartModel;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
 
@@ -42,7 +39,7 @@ public class AgController {
         selecoes.put("Torneio", Selecao.TORNEIO);
 
         crossovers = new HashMap();
-        crossovers.put("Dois Pontos", TipoCrossover.DOIS_PONTOS);
+        //crossovers.put("Dois Pontos", TipoCrossover.DOIS_PONTOS);
         crossovers.put("Um Ponto", TipoCrossover.UM_PONTO);
         crossovers.put("Uniforme", TipoCrossover.UNIFORME);
 

@@ -6,10 +6,8 @@
 package modelo.binario;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -31,7 +29,7 @@ public class Populacao {
 
     /*
      Por padrao, a populacao sempre sera inicializada com o tipo de crossover
-     como sendo de um ponto e o tipo de selecao serah a roleta
+     como sendo de um ponto e o tipo de selecao serah o torneio
      */
     public Populacao(int tamanhoPop, int tamanhoCromo) {
         this.tamanhoPopulacao = tamanhoPop;
@@ -59,24 +57,51 @@ public class Populacao {
 
         //se o elitismo foi setado como verdadeiro, serao escolhidos os melhores
         //individuos para passarem direto para a proxima geracao
-        if (isElitismo()) {
-            //aqui acontece o elitismo
-            Cromossomo[] elite = new Cromossomo[2];
-            for (int i = 0; i < 2; i++) {
-                elite[i] = elitismo();
-            }
-            temp.addAll(Arrays.asList(elite));
+//        if (isElitismo()) {
+//            //aqui acontece o elitismo
+//            Cromossomo[] elite = new Cromossomo[2];
+//            for (int i = 0; i < 2; i++) {
+//                elite[i] = elitismo();
+//            }
+//            temp.addAll(Arrays.asList(elite));
+//        }
+        if(isElitismo()) {
+            Cromossomo elite = elitismo();
+            temp.add(elite);
         }
-        while (temp.size() < tamanhoPopulacao) {
-            Casal casal = casamento();
-            if (chanceCruzamento < txCruzamento) {
-                Cromossomo[] novosIndividuos = casal.cruza(txMutacao);
-                temp.addAll(Arrays.asList(novosIndividuos));
+        
+//        while (temp.size() < tamanhoPopulacao) {
+//            Casal casal = casamento();
+//            if (chanceCruzamento < txCruzamento) {
+//                Cromossomo[] novosIndividuos = casal.cruza(txMutacao);
+//                temp.addAll(Arrays.asList(novosIndividuos));
+//
+//            } else {
+//                Cromossomo[] cromossomos = casal.getConjuges();
+//                temp.addAll(Arrays.asList(cromossomos));
+//                //individuos.removeAll(Arrays.asList(cromossomos));
+//            }
+//        }
 
+        /**
+         * Aqui acontece o cruzamento mediante a taxa de cruzamento e caso a
+         * mesma nao ocorra os pais vao pra proxima geracao
+         */
+        while(temp.size() < tamanhoPopulacao) {
+            Casal casal = casamento();
+            Cromossomo[] nextGeneration;
+            if (chanceCruzamento < txCruzamento) {
+                nextGeneration = casal.cruza(txMutacao);
             } else {
-                Cromossomo[] cromossomos = casal.getConjuges();
-                temp.addAll(Arrays.asList(cromossomos));
-                //individuos.removeAll(Arrays.asList(cromossomos));
+                nextGeneration = casal.getConjuges();
+            }
+
+            for (Cromossomo i : nextGeneration) {
+                if (temp.size() < tamanhoPopulacao) {
+                    temp.add(i);
+                } else {
+                    break;
+                }
             }
         }
 
@@ -167,7 +192,6 @@ public class Populacao {
         while (i.hasNext()) {
             somatorioFitness += i.next().getFitness();
         }
-
 
         Iterator<Cromossomo> it2 = individuos.iterator();
         while (it2.hasNext()) {
@@ -273,16 +297,16 @@ public class Populacao {
         float media = (somatorio / individuos.size());
         return media;
     }
-    
+
     public float getDesvioPadrao() {
-        
+
         float variancia = 0;
         for (Cromossomo individuo : individuos) {
             variancia += Math.pow(individuo.getFitness() - getMedia(), 2);
         }
-        
+
         float desvioPadrao = (float) Math.sqrt(variancia / (individuos.size() - 1));
-        
+
         return desvioPadrao;
     }
 
