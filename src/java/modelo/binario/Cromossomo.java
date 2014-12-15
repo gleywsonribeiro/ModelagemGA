@@ -12,19 +12,17 @@ import static java.lang.Math.*;
 
 /**
  *
- * @author Gleywson
- * Cromossomo modelado para a funcao de ACKLEY: 
- * a = 20;
- * b = 0.2;
- * c = 2*pi;
- * 
- * Z = -a*exp(-b * sqrt((X.^2+Y.^2)/2)) - exp((cos(c*X) + cos(c*Y))/2) + a + exp(1);
+ * @author Gleywson Cromossomo modelado para a funcao de ACKLEY: a = 20; b =
+ * 0.2; c = 2*pi;
+ *
+ * Z = -a*exp(-b * sqrt((X.^2+Y.^2)/2)) - exp((cos(c*X) + cos(c*Y))/2) + a +
+ * exp(1);
  */
-public class Cromossomo {
+public class Cromossomo implements Comparable<Cromossomo> {
 
     private final float x[];
     private Gene[] genes;
-    
+
     private final float limiteInferior;
     private final float limiteSuperior;
 
@@ -35,7 +33,7 @@ public class Cromossomo {
         this.x = new float[2];
         initCromossomo();
     }
-    
+
     //caso seja preciso setar na tela, esse construtor podera ser usado
     public Cromossomo(int tamanho, float lmtSuperior, float lmtInferior) {
         limiteInferior = lmtInferior;
@@ -67,8 +65,8 @@ public class Cromossomo {
         segmentos[1] = this.toString().substring(meio, comprimento);
 
         /**
-         * Cacula os valores de binario para float e atribui no vetor x que representa uma
-         * solucao real
+         * Cacula os valores de binario para float e atribui no vetor x que
+         * representa uma solucao real
          */
         for (int i = 0; i < segmentos.length; i++) {
             decimal[i] = Integer.parseInt(segmentos[i], 2);
@@ -95,7 +93,9 @@ public class Cromossomo {
             this.genes[i].setBit(gene);
         }
     }
+
     //retorna o valor atual do cromossomo
+
     public float[] getX() {
         initX();
         return x;
@@ -117,18 +117,12 @@ public class Cromossomo {
         double z;
         double a = 20;
         double b = 0.2;
-        double c = 2*Math.PI;
-        
-        z = -a*exp(-b * sqrt((pow(getX()[0],2) + pow(getX()[1],2))/2)) - exp((cos(c*getX()[0]) + cos(c*getX()[1]))/2) + a + exp(1);
-        
+        double c = 2 * Math.PI;
+
+        z = -a * exp(-b * sqrt((pow(getX()[0], 2) + pow(getX()[1], 2)) / 2)) - exp((cos(c * getX()[0]) + cos(c * getX()[1])) / 2) + a + exp(1);
+
         return (float) z;
     }
-    
-     public float getAptidao() {
-        return -getFitness() + 30;
-     }
-
-    
 
     @Override
     public String toString() {
@@ -139,10 +133,8 @@ public class Cromossomo {
 
         return saida;
 
-        
     }
-    
-    
+
     //Retorna uma lista de genes. Talvez seja retirado tambem, nao vejo necessidade
     List asList() {
         List saida = new ArrayList();
@@ -166,5 +158,16 @@ public class Cromossomo {
             }
         }
         return true;
-    } 
+    }
+
+    @Override
+    public int compareTo(Cromossomo o) {
+        if (this.getFitness() < o.getFitness()) {
+            return 1;
+        }
+        if (this.getFitness() > o.getFitness()) {
+            return -1;
+        }
+        return 0;
+    }
 }

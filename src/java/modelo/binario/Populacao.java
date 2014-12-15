@@ -7,7 +7,11 @@ package modelo.binario;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -179,25 +183,35 @@ public class Populacao {
     }
 
     private Cromossomo roleta() {
-        double somatorioAptidao = 0;
+        List<Cromossomo> lista = new ArrayList<>(individuos);
+        Collections.sort(lista);
+        Map<Integer, Cromossomo> mapa = new HashMap();
 
-        Iterator<Cromossomo> i = individuos.iterator();
-        while (i.hasNext()) {
-            somatorioAptidao += i.next().getAptidao();
+        for (int i = 0; i < lista.size(); i++) {
+            mapa.put(i + 1, lista.get(i));
         }
 
-        double sorteio = Math.random() * somatorioAptidao;
+        int somatorioClassificacao = 0;
 
-        Iterator<Cromossomo> it = individuos.iterator();
-        double soma = 0;
-        while (it.hasNext()) {
-            soma += it.next().getFitness();
+        for (Map.Entry<Integer, Cromossomo> i : mapa.entrySet()) {
+            somatorioClassificacao += i.getKey();
+        }
+
+        Random random = new Random();
+        int sorteio = random.nextInt(somatorioClassificacao) + 1;
+        int soma = 0;
+
+        for (Map.Entry<Integer, Cromossomo> k : mapa.entrySet()) {
+            Integer key = k.getKey();
+            soma += key;
+            Cromossomo value = k.getValue();
             if (soma > sorteio) {
-                return it.next();
+                return value;
             }
-        }
-        return null;
 
+        }
+
+        return null;
     }
 
     private Cromossomo seleciona(Selecao selecao) {
