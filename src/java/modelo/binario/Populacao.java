@@ -65,11 +65,11 @@ public class Populacao {
 //            }
 //            temp.addAll(Arrays.asList(elite));
 //        }
-        if(isElitismo()) {
+        if (isElitismo()) {
             Cromossomo elite = elitismo();
             temp.add(elite);
         }
-        
+
 //        while (temp.size() < tamanhoPopulacao) {
 //            Casal casal = casamento();
 //            if (chanceCruzamento < txCruzamento) {
@@ -82,12 +82,11 @@ public class Populacao {
 //                //individuos.removeAll(Arrays.asList(cromossomos));
 //            }
 //        }
-
         /**
          * Aqui acontece o cruzamento mediante a taxa de cruzamento e caso a
          * mesma nao ocorra os pais vao pra proxima geracao
          */
-        while(temp.size() < tamanhoPopulacao) {
+        while (temp.size() < tamanhoPopulacao) {
             Casal casal = casamento();
             Cromossomo[] nextGeneration;
             if (chanceCruzamento < txCruzamento) {
@@ -180,70 +179,25 @@ public class Populacao {
     }
 
     private Cromossomo roleta() {
-        Random random = new Random();
-        float somatorioFitness = 0;
+        double somatorioAptidao = 0;
+
         Iterator<Cromossomo> i = individuos.iterator();
-        
-        while(i.hasNext()) {
-            somatorioFitness = i.next().getFitness();
+        while (i.hasNext()) {
+            somatorioAptidao += i.next().getAptidao();
         }
-        float sementeFracionada = random.nextFloat();
-        int sementeInteira = random.nextInt(Math.round(somatorioFitness) + 1);
-        float sorteio = sementeFracionada * sementeInteira;
-        
+
+        double sorteio = Math.random() * somatorioAptidao;
+
         Iterator<Cromossomo> it = individuos.iterator();
-        float s = 0;
-        Cromossomo felizardo = null;
+        double soma = 0;
         while (it.hasNext()) {
-            Cromossomo next = it.next();
-            s += it.next().getFitness();
-            if(s >= sorteio) {
-                felizardo = next;
-                break;
+            soma += it.next().getFitness();
+            if (soma > sorteio) {
+                return it.next();
             }
         }
-        return felizardo;
-//        double somatorioFitness = 0;
-//   
-//        double acumulado = 0;
-//        Cromossomo retorno = null;
-//
-//        Collection<Object[]> roleta = new ArrayList<>();
-//        Iterator<Cromossomo> i = individuos.iterator();
-//       
-//
-//        while (i.hasNext()) {
-//            somatorioFitness += i.next().getFitness();
-//        }
-//
-//
-//        Iterator<Cromossomo> it2 = individuos.iterator();
-//        while (it2.hasNext()) {
-//            Cromossomo individuo = it2.next();
-//            roleta.add(new Object[]{
-//                acumulado, acumulado + individuo.getFitness() / somatorioFitness,
-//                individuo
-//            });
-//
-//            acumulado += individuo.getFitness() / somatorioFitness;
-//        }
-//        double sorteio = Math.random();
-//
-//        Iterator<Object[]> it3 = roleta.iterator();
-//        while (it3.hasNext()) {
-//            Object[] atual = it3.next();
-//
-//            double limiteInferior = ((Double) atual[0]);
-//            double limiteSuperior = ((Double) atual[1]);
-//            Cromossomo individuo = (Cromossomo) atual[2];
-//
-//            if (sorteio >= limiteInferior && sorteio < limiteSuperior) {
-//                retorno = individuo;
-//                break;
-//            }
-//        }
-//
-//        return retorno;
+        return null;
+
     }
 
     private Cromossomo seleciona(Selecao selecao) {

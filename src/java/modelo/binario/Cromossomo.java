@@ -123,6 +123,10 @@ public class Cromossomo {
         
         return (float) z;
     }
+    
+     public float getAptidao() {
+        return -getFitness() + 30;
+     }
 
     
 
