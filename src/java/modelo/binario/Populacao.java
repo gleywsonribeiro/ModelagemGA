@@ -183,6 +183,7 @@ public class Populacao {
     }
 
     private Cromossomo roleta() {
+        Cromossomo Cromossomo = new Cromossomo(individuos.size());
         List<Cromossomo> lista = new ArrayList<>(individuos);
         Collections.sort(lista);
         Map<Integer, Cromossomo> mapa = new HashMap();
@@ -211,7 +212,7 @@ public class Populacao {
 
         }
 
-        return null;
+        return Cromossomo;
     }
 
     private Cromossomo seleciona(Selecao selecao) {
