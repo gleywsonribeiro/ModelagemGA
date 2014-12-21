@@ -35,8 +35,8 @@ public class AgController {
     public AgController() {
         ag = new AlgoritmoGenetico();
         selecoes = new HashMap();
-        selecoes.put("Roleta", Selecao.ROLETA);
-        selecoes.put("Classificação", Selecao.TORNEIO);
+        selecoes.put("Classificação", Selecao.ROLETA);
+        selecoes.put("Torneio", Selecao.TORNEIO);
 
         crossovers = new HashMap();
         //crossovers.put("Dois Pontos", TipoCrossover.DOIS_PONTOS);
