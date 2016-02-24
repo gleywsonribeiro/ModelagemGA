@@ -32,15 +32,15 @@ public class Cruzamento {
             case UNIFORME:
                 for (int i = 0; i < c1.getGenes().length; i++) {
 
-                    int bitMae = c1.getGenes()[i].getBit();
-                    int bitPai = c2.getGenes()[i].getBit();
+                    int bitMae = c1.getGenes()[i].getAlelo();
+                    int bitPai = c2.getGenes()[i].getAlelo();
 
                     if (random.nextBoolean()) {
-                        filhos[0].getGenes()[i].setBit(bitMae);
-                        filhos[1].getGenes()[i].setBit(bitPai);
+                        filhos[0].getGenes()[i].setAlelo(bitMae);
+                        filhos[1].getGenes()[i].setAlelo(bitPai);
                     } else {
-                        filhos[1].getGenes()[i].setBit(bitMae);
-                        filhos[0].getGenes()[i].setBit(bitPai);
+                        filhos[1].getGenes()[i].setAlelo(bitMae);
+                        filhos[0].getGenes()[i].setAlelo(bitPai);
                     }
                 }
                 break;

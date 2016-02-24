@@ -90,7 +90,7 @@ public class Cromossomo implements Comparable<Cromossomo> {
         for (int i = 0; i < geneString.length(); i++) {
             char temp = geneString.charAt(i);
             int gene = Integer.parseInt(String.valueOf(temp));
-            this.genes[i].setBit(gene);
+            this.genes[i].setAlelo(gene);
         }
     }
 
