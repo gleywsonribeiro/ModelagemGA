@@ -25,19 +25,17 @@ public class Gene {
 
     
     public void setAlelo(int alelo) {
-        if (alelo > 1) {
-            this.alelo = 1;
-        } else if (alelo < 0) {
-            this.alelo = 0;
-        } else {
+        if(alelo == 1 || alelo==0) {
             this.alelo = alelo;
+        } else {
+            throw new IllegalArgumentException("Valor incompatível para bit");
         }
     }
     
-    public boolean mutacao(float taxa) {
-        float referencia = new Random().nextFloat();
+    public boolean mutacao(double taxa) {
+        double probabilidade = new Random().nextDouble();
         
-        if(referencia < taxa) {
+        if(probabilidade < taxa) {
             if(this.alelo == 0) {
                 this.setAlelo(1);
             } else {

@@ -15,7 +15,7 @@ import modelo.binario.Gene;
 public class TestaGene {
 
     public static void main(String[] args) {
-        Gene[] genes = new Gene[3];
+        Gene[] genes = new Gene[2];
         
         //inicializacao
         for (int i = 0; i < genes.length; i++) {
@@ -26,5 +26,10 @@ public class TestaGene {
         
         int pontoDeCorte = 1 + new Random().nextInt(genes.length - 1);
         System.out.println(pontoDeCorte);
+        
+        Gene gene = new Gene();
+        System.out.println(gene.toString());
+        gene.setAlelo(0);
+        System.out.println("Novo alelo:" + gene.toString());
     }
 }
