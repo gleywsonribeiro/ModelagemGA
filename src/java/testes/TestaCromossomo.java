@@ -18,7 +18,7 @@ public class TestaCromossomo {
         System.out.println(c);
         System.out.println(c.getFitness());
         
-        for(float i:c.getX()) {
+        for(double i:c.getX()) {
             System.out.println(i);
         }
         Cromossomo c2 = new Cromossomo(10);

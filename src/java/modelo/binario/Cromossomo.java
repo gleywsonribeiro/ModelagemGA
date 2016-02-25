@@ -20,17 +20,17 @@ import static java.lang.Math.*;
  */
 public class Cromossomo implements Comparable<Cromossomo> {
 
-    private final float x[];
+    private final double x[];
     private Gene[] genes;
 
-    private final float limiteInferior;
-    private final float limiteSuperior;
+    private final double limiteInferior;
+    private final double limiteSuperior;
 
     public Cromossomo(int tamanho) {
-        limiteInferior = -32.768f;
-        limiteSuperior = 32.768f;
+        limiteInferior = -100;
+        limiteSuperior = 100;
         this.genes = new Gene[tamanho];
-        this.x = new float[2];
+        this.x = new double[2];
         initCromossomo();
     }
 
@@ -39,7 +39,7 @@ public class Cromossomo implements Comparable<Cromossomo> {
         limiteInferior = lmtInferior;
         limiteSuperior = lmtSuperior;
         this.genes = new Gene[tamanho];
-        this.x = new float[2];
+        this.x = new double[2];
         initCromossomo();
     }
 
@@ -75,8 +75,8 @@ public class Cromossomo implements Comparable<Cromossomo> {
     }
 
     private float toReal(int valor, int k) {
-        float min = this.limiteInferior;
-        float max = this.limiteSuperior;
+        double min = this.limiteInferior;
+        double max = this.limiteSuperior;
 
         double xReal = min + ((valor * (max - min)) / (Math.pow(2, k) - 1));
         return (float) xReal;
@@ -95,8 +95,7 @@ public class Cromossomo implements Comparable<Cromossomo> {
     }
 
     //retorna o valor atual do cromossomo
-
-    public float[] getX() {
+    public double[] getX() {
         initX();
         return x;
     }
@@ -113,15 +112,20 @@ public class Cromossomo implements Comparable<Cromossomo> {
         this.genes = genes;
     }
 
-    public float getFitness() {
-        double z;
-        double a = 20;
-        double b = 0.2;
-        double c = 2 * Math.PI;
-
-        z = -a * exp(-b * sqrt((pow(getX()[0], 2) + pow(getX()[1], 2)) / 2)) - exp((cos(c * getX()[0]) + cos(c * getX()[1])) / 2) + a + exp(1);
-
-        return (float) z;
+    public double getFitness() {
+        double F6;
+//        double a = 20;
+//        double b = 0.2;
+//        double c = 2 * Math.PI;
+//
+//        z = -a * exp(-b * sqrt((pow(getX()[0], 2) + pow(getX()[1], 2)) / 2)) - exp((cos(c * getX()[0]) + cos(c * getX()[1])) / 2) + a + exp(1);
+        //Um simples arranjo para evitar erro na escrita da função
+        double x = getX()[0];
+        double y = getX()[1];
+        double numerador  = pow(sin(sqrt(pow(x, 2) + pow(y, 2))), 2) -0.5;
+        double denominador = pow(1 + 0.001*(pow(x, 2) + pow(y, 2)), 2);
+        F6 = 0.5 - (numerador/denominador);
+        return F6;
     }
 
     @Override

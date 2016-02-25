@@ -108,11 +108,11 @@ public class AgController {
     }
     
     public Cromossomo getMelhorSolucaoEncontrada() {
-        float melhorFit = Float.MAX_VALUE;
+        double melhorFit = Float.MIN_VALUE;
         Cromossomo temp = null;
         for (Cromossomo i:ag.getMelhoresIndividuos()) {
             
-            if(i.getFitness() < melhorFit) {
+            if(i.getFitness() > melhorFit) {
                 melhorFit = i.getFitness();
                 temp = i;
             }

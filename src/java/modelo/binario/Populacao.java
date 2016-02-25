@@ -127,12 +127,12 @@ public class Populacao {
 
     private Cromossomo elitismo() {
         Cromossomo maisApto = null;
-        float valor = Float.MAX_VALUE;
+        double valor = Float.MIN_VALUE;
         Iterator<Cromossomo> iterator = individuos.iterator();
 
         while (iterator.hasNext()) {
             Cromossomo elite = iterator.next();
-            if (elite.getFitness() < valor) {
+            if (elite.getFitness() > valor) {
                 valor = elite.getFitness();
                 maisApto = elite;
             }
@@ -172,9 +172,9 @@ public class Populacao {
         }
 
         Cromossomo maisApto = null;
-        float valor = Float.MAX_VALUE;
+        double valor = Float.MAX_VALUE;
         for (Cromossomo competidor : competidores) {
-            if (competidor.getFitness() < valor) {
+            if (competidor.getFitness() > valor) {
                 valor = competidor.getFitness();
                 maisApto = competidor;
             }
@@ -265,12 +265,12 @@ public class Populacao {
 
     public Cromossomo getPiorIndividuo() {
         Cromossomo pior = null;
-        float valor = Float.MIN_VALUE;
+        double valor = Float.MAX_VALUE;
         Iterator<Cromossomo> iterator = individuos.iterator();
 
         while (iterator.hasNext()) {
             Cromossomo cromossomo = iterator.next();
-            if (cromossomo.getFitness() > valor) {
+            if (cromossomo.getFitness() < valor) {
                 valor = cromossomo.getFitness();
                 pior = cromossomo;
             }
