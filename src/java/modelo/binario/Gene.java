@@ -13,24 +13,24 @@ import java.util.Random;
  * @author Gleywson
  */
 public class Gene {
-    private int bit;
+    private int alelo;
     
     public Gene() {
-        this.bit = new Random().nextInt(2);
+        this.alelo = new Random().nextInt(2);
     }
 
-    public int getBit() {
-        return bit;
+    public int getAlelo() {
+        return alelo;
     }
 
     
-    public void setBit(int bit) {
-        if (bit > 1) {
-            this.bit = 1;
-        } else if (bit < 0) {
-            this.bit = 0;
+    public void setAlelo(int alelo) {
+        if (alelo > 1) {
+            this.alelo = 1;
+        } else if (alelo < 0) {
+            this.alelo = 0;
         } else {
-            this.bit = bit;
+            this.alelo = alelo;
         }
     }
     
@@ -38,10 +38,10 @@ public class Gene {
         float referencia = new Random().nextFloat();
         
         if(referencia < taxa) {
-            if(this.bit == 0) {
-                this.setBit(1);
+            if(this.alelo == 0) {
+                this.setAlelo(1);
             } else {
-                this.setBit(0);
+                this.setAlelo(0);
             }
             
             return true;
@@ -59,20 +59,20 @@ public class Gene {
         }
 
         Gene gene = (Gene) object;
-        return this.getBit() == gene.getBit();
+        return this.getAlelo() == gene.getAlelo();
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 19 * hash + this.bit;
+        hash = 19 * hash + this.alelo;
         return hash;
     }
 
     
     @Override
     public String toString() {
-        return String.valueOf(this.bit);
+        return String.valueOf(this.alelo);
     }
     /**
      * Talvez haja a necessidade de criar o metodo compareTo (implementar Comparable)
