@@ -143,6 +143,7 @@ public class Populacao {
 
     private Cromossomo torneio(int n) {
         if (n < 1 && n > individuos.size()) {
+            //criar um mecanismo pra evitar esse erro
             System.err.println("Numero de competidores fora da faixa válida!");
         }
 
@@ -172,7 +173,7 @@ public class Populacao {
         }
 
         Cromossomo maisApto = null;
-        double valor = Float.MAX_VALUE;
+        double valor = Float.MIN_VALUE;
         for (Cromossomo competidor : competidores) {
             if (competidor.getFitness() > valor) {
                 valor = competidor.getFitness();

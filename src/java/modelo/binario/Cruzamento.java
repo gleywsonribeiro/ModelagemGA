@@ -12,6 +12,7 @@ import java.util.Random;
  *
  * @author Raquel
  */
+//Classe que disponibiliza o serviço de cruzamento
 public class Cruzamento {
 
     public static Cromossomo[] cruza(Cromossomo c1, Cromossomo c2, float TxMutacao, TipoCrossover crossover) {

@@ -19,18 +19,23 @@ import static java.lang.Math.*;
  * exp(1);
  */
 public class Cromossomo implements Comparable<Cromossomo> {
-
+    //vetor com os valores das variaveis
     private final double x[];
+    //Vetor que guarda o array de genes, que pode ser especificado pelo usuario
     private Gene[] genes;
-
+    //limites do domínio de busca
     private final double limiteInferior;
     private final double limiteSuperior;
 
     public Cromossomo(int tamanho) {
+        //para este problema eles foram definidos, mas podem ser setados
         limiteInferior = -100;
         limiteSuperior = 100;
+        //inicializo o vetor de genes com o tamanho passado no construtor
         this.genes = new Gene[tamanho];
+        //como sao somentes duas variaveis
         this.x = new double[2];
+        //inicializo o cromossomo aqui
         initCromossomo();
     }
 
@@ -69,6 +74,7 @@ public class Cromossomo implements Comparable<Cromossomo> {
          * representa uma solucao real
          */
         for (int i = 0; i < segmentos.length; i++) {
+            //aqui converto de binario pra decimal
             decimal[i] = Integer.parseInt(segmentos[i], 2);
             x[i] = toReal(decimal[i], k);
         }
@@ -77,7 +83,7 @@ public class Cromossomo implements Comparable<Cromossomo> {
     private float toReal(int valor, int k) {
         double min = this.limiteInferior;
         double max = this.limiteSuperior;
-
+        //aqui converto pra real
         double xReal = min + ((valor * (max - min)) / (Math.pow(2, k) - 1));
         return (float) xReal;
     }
@@ -113,19 +119,19 @@ public class Cromossomo implements Comparable<Cromossomo> {
     }
 
     public double getFitness() {
-        double F6;
+        double z;
 //        double a = 20;
 //        double b = 0.2;
 //        double c = 2 * Math.PI;
 //
 //        z = -a * exp(-b * sqrt((pow(getX()[0], 2) + pow(getX()[1], 2)) / 2)) - exp((cos(c * getX()[0]) + cos(c * getX()[1])) / 2) + a + exp(1);
         //Um simples arranjo para evitar erro na escrita da função
-        double x = getX()[0];
-        double y = getX()[1];
-        double numerador  = pow(sin(sqrt(pow(x, 2) + pow(y, 2))), 2) -0.5;
-        double denominador = pow(1 + 0.001*(pow(x, 2) + pow(y, 2)), 2);
-        F6 = 0.5 - (numerador/denominador);
-        return F6;
+        double X = getX()[0];
+        double Y = getX()[1];
+        double numerador  = pow(sin(sqrt(pow(X, 2) + pow(Y, 2))), 2) -0.5;
+        double denominador = pow(1 + 0.001*(pow(X, 2) + pow(Y, 2)), 2);
+        z = 0.5 - (numerador/denominador);
+        return z;
     }
 
     @Override
@@ -140,12 +146,16 @@ public class Cromossomo implements Comparable<Cromossomo> {
     }
 
     //Retorna uma lista de genes. Talvez seja retirado tambem, nao vejo necessidade
-    List asList() {
-        List saida = new ArrayList();
-        saida.addAll(Arrays.asList(genes));
-        return saida;
-    }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Arrays.deepHashCode(this.genes);
+        return hash;
+    }
+  
+
+    @Override
     public boolean equals(Object object) {
         if (object == this) {
             return true;
