@@ -29,6 +29,7 @@ public class GraficoController {
             serie.set(i, Math.cos(i)*Math.exp(-i/10));
         }
         modeloGrafico.addSeries(serie);
+        //modeloGrafico.setLegendPosition();
     }
 
     public LineChartModel getModeloGrafico() {

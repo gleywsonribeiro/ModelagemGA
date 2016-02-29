@@ -9,9 +9,9 @@ package exceptions;
  *
  * @author Gleywson
  */
-public class CromossomoExpection extends Exception{
+public class AlgoritmoGeneticoExpection extends Exception{
 
-    public CromossomoExpection(String e) {
+    public AlgoritmoGeneticoExpection(String e) {
         super(e);
     }
     

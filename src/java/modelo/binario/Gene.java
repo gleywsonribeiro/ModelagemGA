@@ -24,7 +24,7 @@ public class Gene {
     }
 
     
-    public void setAlelo(int alelo) {
+    public void setAlelo(int alelo) throws IllegalArgumentException{
         if(alelo == 1 || alelo==0) {
             this.alelo = alelo;
         } else {

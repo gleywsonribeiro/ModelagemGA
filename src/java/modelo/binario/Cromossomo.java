@@ -5,9 +5,8 @@
  */
 package modelo.binario;
 
-import java.util.ArrayList;
+import exceptions.AlgoritmoGeneticoExpection;
 import java.util.Arrays;
-import java.util.List;
 import static java.lang.Math.*;
 
 /**
@@ -40,7 +39,7 @@ public class Cromossomo implements Comparable<Cromossomo> {
     }
 
     //caso seja preciso setar na tela, esse construtor podera ser usado
-    public Cromossomo(int tamanho, float lmtSuperior, float lmtInferior) {
+    public Cromossomo(int tamanho, double lmtSuperior, double lmtInferior) {
         limiteInferior = lmtInferior;
         limiteSuperior = lmtSuperior;
         this.genes = new Gene[tamanho];
@@ -80,17 +79,18 @@ public class Cromossomo implements Comparable<Cromossomo> {
         }
     }
 
-    private float toReal(int valor, int k) {
+    private double toReal(int valor, int k) {
         double min = this.limiteInferior;
         double max = this.limiteSuperior;
         //aqui converto pra real
         double xReal = min + ((valor * (max - min)) / (Math.pow(2, k) - 1));
-        return (float) xReal;
+        
+        return xReal;
     }
 
-    public void setGenes(String geneString) {
+    public void setGenes(String geneString) throws AlgoritmoGeneticoExpection {
         if (geneString.length() > getTamanho()) {
-            return;
+            throw new AlgoritmoGeneticoExpection("Estourou o tamanho do Cromossomo");
         }
 
         for (int i = 0; i < geneString.length(); i++) {
@@ -120,11 +120,6 @@ public class Cromossomo implements Comparable<Cromossomo> {
 
     public double getFitness() {
         double z;
-//        double a = 20;
-//        double b = 0.2;
-//        double c = 2 * Math.PI;
-//
-//        z = -a * exp(-b * sqrt((pow(getX()[0], 2) + pow(getX()[1], 2)) / 2)) - exp((cos(c * getX()[0]) + cos(c * getX()[1])) / 2) + a + exp(1);
         //Um simples arranjo para evitar erro na escrita da função
         double X = getX()[0];
         double Y = getX()[1];
@@ -133,7 +128,7 @@ public class Cromossomo implements Comparable<Cromossomo> {
         z = 0.5 - (numerador/denominador);
         return z;
     }
-
+    //Retorna uma versao String do Cromossomo
     @Override
     public String toString() {
         String saida = "";

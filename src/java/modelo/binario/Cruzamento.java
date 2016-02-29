@@ -5,8 +5,11 @@
  */
 package modelo.binario;
 
+import exceptions.AlgoritmoGeneticoExpection;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -59,7 +62,11 @@ public class Cruzamento {
                 stringfilho[1] = maeSegmento1 + paiSegmento2;
 
                 for (int index = 0; index < filhos.length; index++) {
-                    filhos[index].setGenes(stringfilho[index]);
+                    try {
+                        filhos[index].setGenes(stringfilho[index]);
+                    } catch (AlgoritmoGeneticoExpection ex) {
+                        Logger.getLogger(Cruzamento.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
                 break;
             case DOIS_PONTOS:
@@ -109,7 +116,11 @@ public class Cruzamento {
                 }
 
                 for (int index = 0; index < filhos.length; index++) {
-                    filhos[index].setGenes(stringFilhos[index]);
+                    try {
+                        filhos[index].setGenes(stringFilhos[index]);
+                    } catch (AlgoritmoGeneticoExpection ex) {
+                        Logger.getLogger(Cruzamento.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
 
                 break;
