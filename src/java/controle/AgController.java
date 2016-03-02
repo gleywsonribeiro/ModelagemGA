@@ -35,7 +35,7 @@ public class AgController {
     public AgController() {
         ag = new AlgoritmoGenetico();
         selecoes = new HashMap();
-        selecoes.put("Classificação", Selecao.ROLETA);
+        selecoes.put("Roleta", Selecao.ROLETA);
         selecoes.put("Torneio", Selecao.TORNEIO);
 
         crossovers = new HashMap();
@@ -98,7 +98,7 @@ public class AgController {
         model.addSeries(desvioPadrao);
         model.addSeries(media);
         model.setTitle("Desempenho por Gerações");
-        model.setLegendPosition("ne");
+        model.setLegendPosition("e"); //nw
         model.setAnimate(true);
         model.setSeriesColors("00cc00,cc0000,e5e55f,0099ff");
 

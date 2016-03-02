@@ -39,7 +39,7 @@ public class AlgoritmoGenetico {
         p.setSelecao(selecao);
         p.setTipoCrossover(tipoCrossover);
         
-        for(int i = 0; i < numeroGeracoes; i++) {
+        for(int i = 0; i <= numeroGeracoes; i++) {
             p.geracao(taxaMutacao, taxaCruzamento);
             pioresIndividuos.add(p.getPiorIndividuo());
             melhoresIndividuos.add(p.getMelhorIndividuo());

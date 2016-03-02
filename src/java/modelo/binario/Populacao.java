@@ -46,7 +46,7 @@ public class Populacao {
     }
 
     //passo o tamanho que cada cromossomo vai ter. Esse parametro eh passado 
-    //no construtor
+    //no construtor. Criacao aleatoria da populacao
     private void initPopulacao(int tamanhoIndividuo) {
         int i = 0;
         while (i < getTamanhoPopulacao()) {
@@ -59,33 +59,10 @@ public class Populacao {
         Random random = new Random();
         double chanceCruzamento = random.nextFloat();
 
-        //se o elitismo foi setado como verdadeiro, serao escolhidos os melhores
-        //individuos para passarem direto para a proxima geracao
-//        if (isElitismo()) {
-//            //aqui acontece o elitismo
-//            Cromossomo[] elite = new Cromossomo[2];
-//            for (int i = 0; i < 2; i++) {
-//                elite[i] = elitismo();
-//            }
-//            temp.addAll(Arrays.asList(elite));
-//        }
         if (isElitismo()) {
             Cromossomo elite = elitismo();
             temp.add(elite);
         }
-
-//        while (temp.size() < tamanhoPopulacao) {
-//            Casal casal = casamento();
-//            if (chanceCruzamento < txCruzamento) {
-//                Cromossomo[] novosIndividuos = casal.cruza(txMutacao);
-//                temp.addAll(Arrays.asList(novosIndividuos));
-//
-//            } else {
-//                Cromossomo[] cromossomos = casal.getConjuges();
-//                temp.addAll(Arrays.asList(cromossomos));
-//                //individuos.removeAll(Arrays.asList(cromossomos));
-//            }
-//        }
         /**
          * Aqui acontece o cruzamento mediante a taxa de cruzamento e caso a
          * mesma nao ocorra os pais vao pra proxima geracao
@@ -137,7 +114,7 @@ public class Populacao {
                 maisApto = elite;
             }
         }
-        individuos.remove(maisApto);
+        //individuos.remove(maisApto); não mais remover pra poder fazer o cruzamento
         return maisApto;
     }
 
@@ -215,13 +192,46 @@ public class Populacao {
 
         return Cromossomo;
     }
+    
+    public Cromossomo roleta2() {
+        Cromossomo[] roleta = new Cromossomo[individuos.size()];
+        Iterator<Cromossomo> it = individuos.iterator();
+        
+        
+        double somatorio = 0;
+        double[] acumulador = new double[individuos.size()];
+        
+        int i = 0;
+        while(i < roleta.length && it.hasNext()) {
+            roleta[i] = it.next();
+            somatorio += roleta[i].getFitness();
+        }
+        //somatorio = roleta[0].getFitness();
+        acumulador[0] = roleta[0].getFitness();
+        
+        for (int j = 1; j < roleta.length; j++) {
+            acumulador[i] = roleta[i].getFitness() + acumulador[i-1];
+        }
+        
+        double sorteio = new Random().nextFloat() * somatorio;
+        
+        int k = 0;
+        while(k < acumulador.length) {
+            if(sorteio > acumulador[k]){
+                break;
+            }
+            k++;
+        }
+        return roleta[k];
+        
+    }
 
     private Cromossomo seleciona(Selecao selecao) {
         int n = 3;
         Cromossomo c;
         switch (selecao) {
             case ROLETA:
-                c = roleta();
+                c = roleta2();
                 break;
             case TORNEIO:
                 c = torneio(n);

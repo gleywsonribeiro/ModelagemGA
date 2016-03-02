@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 public class Cruzamento {
 
     public static Cromossomo[] cruza(Cromossomo c1, Cromossomo c2, float TxMutacao, TipoCrossover crossover) {
-        //Variavel usada para sorteios aletorios
+        //Variavel usada para sorteios aleatorios
         Random random = new Random();
         //variavel usada para armazenar o comprimento dos cromossomos, usada sempre que necessario
         int comprimentoCromossomo = c1.getTamanho();
