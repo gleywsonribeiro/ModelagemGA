@@ -210,7 +210,7 @@ public class Populacao {
         acumulador[0] = roleta[0].getFitness();
         
         for (int j = 1; j < roleta.length; j++) {
-            acumulador[i] = roleta[i].getFitness() + acumulador[i-1];
+            acumulador[j] = roleta[j].getFitness() + acumulador[j-1];
         }
         
         double sorteio = new Random().nextFloat() * somatorio;
