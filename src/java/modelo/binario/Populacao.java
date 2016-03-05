@@ -205,6 +205,7 @@ public class Populacao {
         while(i < roleta.length && it.hasNext()) {
             roleta[i] = it.next();
             somatorio += roleta[i].getFitness();
+            i++;
         }
         //somatorio = roleta[0].getFitness();
         acumulador[0] = roleta[0].getFitness();
@@ -217,7 +218,7 @@ public class Populacao {
         
         int k = 0;
         while(k < acumulador.length) {
-            if(sorteio > acumulador[k]){
+            if(sorteio < acumulador[k]){
                 break;
             }
             k++;
@@ -225,6 +226,21 @@ public class Populacao {
         return roleta[k];
         
     }
+    
+//    public static void main(String[] args) {
+//        Populacao p = new Populacao(50, 40);
+//        p.setElitismo(false);
+//        p.setSelecao(Selecao.ROLETA);
+//        p.setTipoCrossover(TipoCrossover.UM_PONTO);
+//        
+//        System.out.println("Até aqui passou!");
+//        
+//        int geracoes = 4;
+//        for(int i = 0; i < geracoes; i++) {
+//            p.geracao(0.1f, 0.80f);
+//        }
+//        System.out.println("Passou!!!");
+//    }
 
     private Cromossomo seleciona(Selecao selecao) {
         int n = 3;
