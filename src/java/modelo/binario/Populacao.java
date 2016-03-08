@@ -227,20 +227,6 @@ public class Populacao {
         
     }
     
-//    public static void main(String[] args) {
-//        Populacao p = new Populacao(50, 40);
-//        p.setElitismo(false);
-//        p.setSelecao(Selecao.ROLETA);
-//        p.setTipoCrossover(TipoCrossover.UM_PONTO);
-//        
-//        System.out.println("Até aqui passou!");
-//        
-//        int geracoes = 4;
-//        for(int i = 0; i < geracoes; i++) {
-//            p.geracao(0.1f, 0.80f);
-//        }
-//        System.out.println("Passou!!!");
-//    }
 
     private Cromossomo seleciona(Selecao selecao) {
         int n = 3;
