@@ -42,6 +42,15 @@ public class AgController {
         //crossovers.put("Dois Pontos", TipoCrossover.DOIS_PONTOS);
         crossovers.put("Um Ponto", TipoCrossover.UM_PONTO);
         crossovers.put("Uniforme", TipoCrossover.UNIFORME);
+        
+        ag.setTamanhoPopulacao(100);
+        ag.setNumeroGeracoes(50);
+        ag.setTamanhoCromossomo(50);
+        ag.setTaxaCruzamento(0.85f);
+        ag.setTaxaMutacao(0.01f);
+        ag.setElitismo(false);
+        ag.setSelecao(Selecao.ROLETA);
+        ag.setTipoCrossover(TipoCrossover.UM_PONTO);
 
         model = new LineChartModel();
     }

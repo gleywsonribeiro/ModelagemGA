@@ -24,27 +24,27 @@
             </p:layoutUnit>
 
 
-            <p:layoutUnit position="west" size="400" header="Parâmetros" resizable="true" collapsible="true">
+            <p:layoutUnit position="west" size="250" header="Parâmetros" resizable="true" collapsible="true">
                 <p:panel>
                     <h:form>
                         <h:panelGrid columns="2">
                             Tamanho da população:
-                            <p:inputText value="#{agController.ag.tamanhoPopulacao}"/>
+                            <p:inputText value="#{agController.ag.tamanhoPopulacao}" size="5"/>
 
                             Número de gerações:
-                            <p:inputText value="#{agController.ag.numeroGeracoes}"/>
+                            <p:inputText value="#{agController.ag.numeroGeracoes}" size="5"/>
 
                             Tamanho do Cromossomo:
                             <h:panelGroup>
-                                <p:inputText id="tmc" value="#{agController.ag.tamanhoCromossomo}"/>
+                                <p:inputText id="tmc" value="#{agController.ag.tamanhoCromossomo}" size="5" disabled="true"/>
                                 <p:slider for="tmc" step="2" minValue="10" maxValue="50"/>
                             </h:panelGroup>
 
                             Taxa de Cruzamento:
-                            <p:spinner value="#{agController.ag.taxaCruzamento}" stepFactor="0.05" min="0" max="1"/>
+                            <p:spinner value="#{agController.ag.taxaCruzamento}" stepFactor="0.05" min="0" max="1" size="5"/>
 
                             Taxa de mutação:
-                            <p:spinner value="#{agController.ag.taxaMutacao}" stepFactor="0.01" max="1" min="0"/>
+                            <p:spinner value="#{agController.ag.taxaMutacao}" stepFactor="0.01" max="1" min="0" size="5"/>
 
                             Crossover:
                            
