@@ -12,12 +12,12 @@ package modelo.binario;
 public class Casal {
     private Cromossomo pai;
     private Cromossomo mae;
-    private TipoCrossover tipoCrossover;
+    private TipoCrossover crossover;
 
     public Casal(Cromossomo pai, Cromossomo mae, TipoCrossover crossover) {
         this.pai = pai;
         this.mae = mae;
-        this.tipoCrossover = crossover;
+        this.crossover = crossover;
     }
 
     public Cromossomo getPai() {
@@ -36,16 +36,16 @@ public class Casal {
         this.mae = mae;
     }
 
-    public TipoCrossover getTipoCrossover() {
-        return tipoCrossover;
+    public TipoCrossover getCrossover() {
+        return crossover;
     }
 
-    public void setTipoCrossover(TipoCrossover tipoCrossover) {
-        this.tipoCrossover = tipoCrossover;
+    public void setCrossover(TipoCrossover crossover) {
+        this.crossover = crossover;
     }
 
     public Cromossomo[] cruza(float taxaDeMutacao) {
-        return Cruzamento.cruza(pai, mae, taxaDeMutacao, tipoCrossover);
+        return Cruzamento.cruza(pai, mae, taxaDeMutacao, crossover);
     }
 
     

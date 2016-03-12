@@ -32,7 +32,7 @@ public class Gene {
         }
     }
     
-    public boolean mutacao(double taxa) {
+    public void mutacao(double taxa) {
         double probabilidade = new Random().nextDouble();
         
         if(probabilidade < taxa) {
@@ -41,10 +41,7 @@ public class Gene {
             } else {
                 this.setAlelo(0);
             }
-            
-            return true;
         }
-        return false;
     }
     
     @Override

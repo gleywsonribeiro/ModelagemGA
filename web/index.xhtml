@@ -15,7 +15,7 @@
                 <p:panel header="Maximização de função">
                     <h:outputText value="Algoritmo genético para maximização da função: " />
                     <br/>
-                    <p:graphicImage library="imagens" name="funcao.png" width="30%" height="30%"/>
+                    <p:graphicImage library="imagens" name="funcao.png" width="397px" height="72px"/>
                 </p:panel>
             </p:layoutUnit>
 
@@ -60,7 +60,7 @@
                             Elitismo:
                             <p:selectBooleanCheckbox value="#{agController.ag.elitismo}"/>
 
-                            <p:commandButton actionListener="#{agController.execute()}" value="Executar" ajax="true" process="@all" update="grafico"/>
+                            <p:commandButton actionListener="#{agController.execute()}" value="Executar" ajax="false"/>
                         </h:panelGrid>
 
                     </h:form>

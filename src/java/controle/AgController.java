@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import modelo.binario.AlgoritmoGenetico;
+import modelo.binario.Ag;
 import modelo.binario.Cromossomo;
 import modelo.binario.Selecao;
 import modelo.binario.TipoCrossover;
@@ -24,7 +24,7 @@ import org.primefaces.model.chart.LineChartModel;
 @RequestScoped
 public class AgController {
 
-    private AlgoritmoGenetico ag;
+    private Ag ag;
     private long tempoExecucao;
 
     private final LineChartModel model;
@@ -33,7 +33,7 @@ public class AgController {
     private final Map crossovers;
 
     public AgController() {
-        ag = new AlgoritmoGenetico();
+        ag = new Ag();
         selecoes = new HashMap();
         selecoes.put("Roleta", Selecao.ROLETA);
         selecoes.put("Torneio", Selecao.TORNEIO);
@@ -67,11 +67,11 @@ public class AgController {
         return crossovers;
     }
 
-    public AlgoritmoGenetico getAg() {
+    public Ag getAg() {
         return ag;
     }
 
-    public void setAg(AlgoritmoGenetico ag) {
+    public void setAg(Ag ag) {
         this.ag = ag;
     }
 

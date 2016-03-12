@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Meus Documentos
  */
-public class AlgoritmoGenetico {
+public class Ag {
     private int tamanhoPopulacao;
     private int numeroGeracoes;
     private int tamanhoCromossomo;
@@ -26,7 +26,7 @@ public class AlgoritmoGenetico {
     private final List<Float> desvioPadrao;
     private final List<Float> media;
 
-    public AlgoritmoGenetico() {
+    public Ag() {
         pioresIndividuos = new ArrayList<>();
         melhoresIndividuos = new ArrayList<>();
         desvioPadrao = new ArrayList<>();
@@ -37,7 +37,7 @@ public class AlgoritmoGenetico {
         Populacao p = new Populacao(tamanhoPopulacao, tamanhoCromossomo);
         p.setElitismo(elitismo);
         p.setSelecao(selecao);
-        p.setTipoCrossover(tipoCrossover);
+        p.setCrossover(tipoCrossover);
         
         for(int i = 0; i <= numeroGeracoes; i++) {
             p.geracao(taxaMutacao, taxaCruzamento);

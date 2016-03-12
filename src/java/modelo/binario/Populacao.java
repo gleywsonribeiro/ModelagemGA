@@ -27,7 +27,7 @@ public class Populacao {
     private final int tamanhoPopulacao;
     private final Collection<Cromossomo> individuos;
     private Selecao selecao;
-    private TipoCrossover tipoCrossover;
+    private TipoCrossover crossover;
     private final Collection<Cromossomo> temp;
     private boolean elitismo;
 
@@ -41,7 +41,7 @@ public class Populacao {
         this.temp = new ArrayList<>(tamanhoPopulacao);
         //inicializa a lista de individuos
         initPopulacao(tamanhoCromo);
-        this.tipoCrossover = TipoCrossover.UM_PONTO;
+        this.crossover = TipoCrossover.UM_PONTO;
         this.selecao = Selecao.TORNEIO;
     }
 
@@ -99,7 +99,7 @@ public class Populacao {
             mae = seleciona(selecao);
         } while (pai.equals(mae));
 
-        return new Casal(pai, mae, tipoCrossover);
+        return new Casal(pai, mae, crossover);
     }
 
     private Cromossomo elitismo() {
@@ -160,40 +160,41 @@ public class Populacao {
         return maisApto;
     }
 
-    private Cromossomo roleta() {
-        Cromossomo Cromossomo = new Cromossomo(individuos.size());
-        List<Cromossomo> lista = new ArrayList<>(individuos);
-        Collections.sort(lista);
-        Map<Integer, Cromossomo> mapa = new HashMap();
-
-        for (int i = 0; i < lista.size(); i++) {
-            mapa.put(i + 1, lista.get(i));
-        }
-
-        int somatorioClassificacao = 0;
-
-        for (Map.Entry<Integer, Cromossomo> i : mapa.entrySet()) {
-            somatorioClassificacao += i.getKey();
-        }
-
-        Random random = new Random();
-        int sorteio = random.nextInt(somatorioClassificacao) + 1;
-        int soma = 0;
-
-        for (Map.Entry<Integer, Cromossomo> k : mapa.entrySet()) {
-            Integer key = k.getKey();
-            soma += key;
-            Cromossomo value = k.getValue();
-            if (soma > sorteio) {
-                return value;
-            }
-
-        }
-
-        return Cromossomo;
-    }
+    //Versao antiga da roleta
+//    private Cromossomo roleta() {
+//        Cromossomo Cromossomo = new Cromossomo(individuos.size());
+//        List<Cromossomo> lista = new ArrayList<>(individuos);
+//        Collections.sort(lista);
+//        Map<Integer, Cromossomo> mapa = new HashMap();
+//
+//        for (int i = 0; i < lista.size(); i++) {
+//            mapa.put(i + 1, lista.get(i));
+//        }
+//
+//        int somatorioClassificacao = 0;
+//
+//        for (Map.Entry<Integer, Cromossomo> i : mapa.entrySet()) {
+//            somatorioClassificacao += i.getKey();
+//        }
+//
+//        Random random = new Random();
+//        int sorteio = random.nextInt(somatorioClassificacao) + 1;
+//        int soma = 0;
+//
+//        for (Map.Entry<Integer, Cromossomo> k : mapa.entrySet()) {
+//            Integer key = k.getKey();
+//            soma += key;
+//            Cromossomo value = k.getValue();
+//            if (soma > sorteio) {
+//                return value;
+//            }
+//
+//        }
+//
+//        return Cromossomo;
+//    }
     
-    public Cromossomo roleta2() {
+    private Cromossomo roleta() {
         Cromossomo[] roleta = new Cromossomo[individuos.size()];
         Iterator<Cromossomo> it = individuos.iterator();
         
@@ -233,7 +234,7 @@ public class Populacao {
         Cromossomo c;
         switch (selecao) {
             case ROLETA:
-                c = roleta2();
+                c = roleta();
                 break;
             case TORNEIO:
                 c = torneio(n);
@@ -252,12 +253,12 @@ public class Populacao {
         this.selecao = selecao;
     }
 
-    public TipoCrossover getTipoCrossover() {
-        return tipoCrossover;
+    public TipoCrossover getCrossover() {
+        return crossover;
     }
 
-    public void setTipoCrossover(TipoCrossover tipoCrossover) {
-        this.tipoCrossover = tipoCrossover;
+    public void setCrossover(TipoCrossover crossover) {
+        this.crossover = crossover;
     }
 
     public Collection<Cromossomo> getIndividuos() {
