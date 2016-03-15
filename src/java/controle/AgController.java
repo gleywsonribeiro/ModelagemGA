@@ -39,7 +39,7 @@ public class AgController {
         selecoes.put("Torneio", Selecao.TORNEIO);
 
         crossovers = new HashMap();
-        //crossovers.put("Dois Pontos", TipoCrossover.DOIS_PONTOS);
+        crossovers.put("Dois Pontos", TipoCrossover.DOIS_PONTOS);
         crossovers.put("Um Ponto", TipoCrossover.UM_PONTO);
         crossovers.put("Uniforme", TipoCrossover.UNIFORME);
         

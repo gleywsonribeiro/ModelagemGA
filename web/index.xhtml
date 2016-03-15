@@ -11,11 +11,9 @@
     <h:body>
         <p:layout fullPage="true">
 
-            <p:layoutUnit position="north" size="150" resizable="true" closable="true" collapsible="true">
+            <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
                 <p:panel header="Maximização de função">
-                    <h:outputText value="Algoritmo genético para maximização da função: " />
-                    <br/>
-                    <p:graphicImage library="imagens" name="funcao.png" width="397px" height="72px"/>
+                    <p:graphicImage library="imagens" name="funcao.png" width="277px" height="43px"/>
                 </p:panel>
             </p:layoutUnit>
 
@@ -28,36 +26,35 @@
                 <p:panel>
                     <h:form>
                         <h:panelGrid columns="2">
-                            Tamanho da população:
+                            <h:outputLabel value="Tamanho da população:" style="float: right"/> 
                             <p:inputText value="#{agController.ag.tamanhoPopulacao}" size="5"/>
 
-                            Número de gerações:
+                            <h:outputLabel value="Número de gerações:" style="float: right"/>
                             <p:inputText value="#{agController.ag.numeroGeracoes}" size="5"/>
 
-                            Tamanho do Cromossomo:
+                            <h:outputLabel value="Cromossomo:" style="float: right"/>
                             <h:panelGroup>
                                 <p:inputText id="tmc" value="#{agController.ag.tamanhoCromossomo}" size="5" disabled="true"/>
                                 <p:slider for="tmc" step="2" minValue="10" maxValue="50"/>
                             </h:panelGroup>
 
-                            Taxa de Cruzamento:
+                            <h:outputLabel value="Taxa de Cruzamento:" style="float: right"/>
                             <p:spinner value="#{agController.ag.taxaCruzamento}" stepFactor="0.05" min="0" max="1" size="5"/>
 
-                            Taxa de mutação:
+                            <h:outputLabel value="Taxa de mutação:" style="float: right"/>
                             <p:spinner value="#{agController.ag.taxaMutacao}" stepFactor="0.01" max="1" min="0" size="5"/>
 
-                            Crossover:
-                           
+                            <h:outputLabel value="Crossover:" style="float: right"/>
                             <p:selectOneMenu value="#{agController.ag.tipoCrossover}">
                                 <f:selectItems value="#{agController.crossovers}"/>
                             </p:selectOneMenu>
 
-                            Seleção:
+                            <h:outputLabel value="Seleção:" style="float: right"/>
                             <p:selectOneMenu value="#{agController.ag.selecao}">
                                 <f:selectItems value="#{agController.selecoes}"/>
                             </p:selectOneMenu>
 
-                            Elitismo:
+                            <h:outputLabel value="Elitismo:" style="float: right"/>
                             <p:selectBooleanCheckbox value="#{agController.ag.elitismo}"/>
 
                             <p:commandButton actionListener="#{agController.execute()}" value="Executar" ajax="false"/>
@@ -67,20 +64,34 @@
                 </p:panel>
             </p:layoutUnit>
             <p:layoutUnit position="center" size="600" header="gráfico" collapsible="false">
-                <p:panel id="pgrafico">
-                    <p:chart id="grafico" type="line" model="#{agController.model}" style="width: 100%; height: 300px;"/>
-                </p:panel>
-                <p:panelGrid columns="3" style="width: 100%">
-                    <p:fieldset legend="Tempo de Execução" style="margin-bottom:20px">
-                        <h:outputText value="#{agController.tempoExecucao} segundos"/>
-                    </p:fieldset>
-                    <p:fieldset legend="Melhor Fitness" style="margin-bottom:20px">
-                        <h:outputText value="#{agController.melhorSolucaoEncontrada.fitness}"/>
-                    </p:fieldset>
-                    <p:fieldset legend="Posição Melhor Fitness" style="margin-bottom:20px">
-                        <h:outputText value="[#{agController.melhorSolucaoEncontrada.x[0]}, #{agController.melhorSolucaoEncontrada.x[1]}]"/>
-                    </p:fieldset>
-                </p:panelGrid>
+                <p:tabView>
+                    <p:tab title="Desempenho">
+                        <p:panel id="pgrafico">
+                            <p:chart id="grafico" type="line" model="#{agController.model}" style="width: 100%; height: 300px;"/>
+                        </p:panel>
+                        <p:panelGrid columns="3" style="width: 100%">
+                            <p:fieldset legend="Tempo de Execução" style="margin-bottom:20px">
+                                <h:outputText value="#{agController.tempoExecucao} segundos"/>
+                            </p:fieldset>
+                            <p:fieldset legend="Melhor Fitness" style="margin-bottom:20px">
+                                <h:outputText value="#{agController.melhorSolucaoEncontrada.fitness}"/>
+                            </p:fieldset>
+                            <p:fieldset legend="Posição Melhor Fitness" style="margin-bottom:20px">
+                                <h:outputText value="[#{agController.melhorSolucaoEncontrada.x[0]}, #{agController.melhorSolucaoEncontrada.x[1]}]"/>
+                            </p:fieldset>
+                        </p:panelGrid>
+                    </p:tab>
+                    <p:tab title="Indivíduos">
+                        Conteudo a ser definido
+                    </p:tab>
+                    <p:tab title="Funcão">
+                        <p:graphicImage library="imagens" name="f06.png" width="80%" height="80%"/>
+                    </p:tab>
+                    <p:tab title="Modelagem">
+                        <p:graphicImage library="imagens" name="AG.png" width="80%" height="80%"/>
+                    </p:tab>
+                </p:tabView>
+
             </p:layoutUnit>
         </p:layout>
     </h:body>
