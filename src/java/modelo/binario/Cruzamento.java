@@ -102,7 +102,7 @@ public class Cruzamento {
                 maeSement[2] = c2.toString().substring(cortes[1], comprimentoCromossomo);
 
                 //array de string que vai fazer receber as combinacoes de locus
-                String[] stringFilhos = new String[2];
+                String[] stringFilhos = {"",""};
 
                 //Combinacao ocorrendo aqui
                 for (int index = 0; index < paiSement.length; index++) {
