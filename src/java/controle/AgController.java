@@ -13,6 +13,7 @@ import modelo.binario.Ag;
 import modelo.binario.Cromossomo;
 import modelo.binario.Selecao;
 import modelo.binario.TipoCrossover;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
 
@@ -28,6 +29,7 @@ public class AgController {
     private long tempoExecucao;
 
     private final LineChartModel model;
+    private DefaultCategoryDataset dataset;
 
     private final Map selecoes;
     private final Map crossovers;
@@ -53,6 +55,7 @@ public class AgController {
         ag.setTipoCrossover(TipoCrossover.UM_PONTO);
 
         model = new LineChartModel();
+        dataset = new DefaultCategoryDataset();
     }
 
     public LineChartModel getModel() {
