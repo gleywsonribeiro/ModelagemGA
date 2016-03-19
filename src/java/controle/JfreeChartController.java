@@ -18,6 +18,7 @@ import javax.imageio.ImageIO;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.primefaces.model.DefaultStreamedContent;
@@ -47,9 +48,9 @@ public class JfreeChartController {
             graphicText = new DefaultStreamedContent(new ByteArrayInputStream(os.toByteArray()), "image/png"); 
  
             //Chart
-            JFreeChart jfreechart = ChartFactory.createPieChart("Cities", createDataset(), true, true, false);
+            JFreeChart jfreechart = ChartFactory.createLineChart("cosseno", "X", "Y", createDataset());
             File chartFile = new File("dynamichart");
-            ChartUtilities.saveChartAsPNG(chartFile, jfreechart, 375, 300);
+            ChartUtilities.saveChartAsPNG(chartFile, jfreechart, 800, 400);
             chart = new DefaultStreamedContent(new FileInputStream(chartFile), "image/png");
         } 
         catch (Exception e) {
@@ -65,12 +66,12 @@ public class JfreeChartController {
         return chart;
     }
      
-    private PieDataset createDataset() {
-        DefaultPieDataset dataset = new DefaultPieDataset();
-        dataset.setValue("New York", new Double(45.0));
-        dataset.setValue("London", new Double(15.0));
-        dataset.setValue("Paris", new Double(25.2));
-        dataset.setValue("Berlin", new Double(14.8));
+    private DefaultCategoryDataset createDataset() {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        
+        for(double i = 0; i <= 10; i+=0.1) {
+            dataset.addValue(Math.cos(Math.PI*i), "cosseno", Double.valueOf(i));
+        }
  
         return dataset;
     }
