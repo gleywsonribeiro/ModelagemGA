@@ -5,6 +5,8 @@
  */
 package controle;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
@@ -13,7 +15,12 @@ import modelo.binario.Ag;
 import modelo.binario.Cromossomo;
 import modelo.binario.Selecao;
 import modelo.binario.TipoCrossover;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
 
@@ -29,8 +36,9 @@ public class AgController {
     private long tempoExecucao;
 
     private final LineChartModel model;
-    private DefaultCategoryDataset dataset;
-
+    
+    private StreamedContent chart;
+    
     private final Map selecoes;
     private final Map crossovers;
 
@@ -55,7 +63,6 @@ public class AgController {
         ag.setTipoCrossover(TipoCrossover.UM_PONTO);
 
         model = new LineChartModel();
-        dataset = new DefaultCategoryDataset();
     }
 
     public LineChartModel getModel() {
@@ -82,6 +89,11 @@ public class AgController {
         return tempoExecucao;
     }
 
+    public StreamedContent getChart() {
+        return chart;
+    }
+
+    
     public void execute() {
         long tempoInicial = System.currentTimeMillis();
 
@@ -97,12 +109,15 @@ public class AgController {
 
         ChartSeries media = new ChartSeries();
         media.setLabel("Média");
+        
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
         for (int i = 0; i < ag.getMelhoresIndividuos().size(); i++) {
             melhores.set(i, ag.getMelhoresIndividuos().get(i).getFitness());
             piores.set(i, ag.getPioresIndividuos().get(i).getFitness());
             desvioPadrao.set(i, ag.getDesvioPadrao().get(i));
             media.set(i, ag.getMedia().get(i));
+            dataset.addValue(ag.getMelhoresIndividuos().get(i).getFitness(), "melhores", Integer.valueOf(i));
 
         }
         model.addSeries(melhores);
@@ -113,6 +128,15 @@ public class AgController {
         model.setLegendPosition("e"); //nw
         model.setAnimate(true);
         model.setSeriesColors("00cc00,cc0000,e5e55f,0099ff");
+        
+        try {
+            JFreeChart jfreechart = ChartFactory.createLineChart("Melhores", "Gerações", "Fitness", dataset);
+            File chartFile = new File("dynamichart");
+            ChartUtilities.saveChartAsPNG(chartFile, jfreechart, 600, 400);
+            chart = new DefaultStreamedContent(new FileInputStream(chartFile), "image/png");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         long tempoFinal = System.currentTimeMillis();
         tempoExecucao = (tempoFinal - tempoInicial) / 1000;
