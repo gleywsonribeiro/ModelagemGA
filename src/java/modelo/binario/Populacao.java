@@ -19,16 +19,17 @@ import java.util.Random;
  * @author Gleywson
  */
 public class Populacao {
+
     /*
      Os atributos que sao finais, o sao simplesmente pq nao sao setados durante
      a execucao, caso haja necessidade de modificar, os mesmos deixam de ser final
      */
 
     private final int tamanhoPopulacao;
-    private final Collection<Cromossomo> individuos;
+    private Cromossomo[] individuos;
     private Selecao selecao;
     private TipoCrossover crossover;
-    private final Collection<Cromossomo> temp;
+    private final Cromossomo[] temp;
     private boolean elitismo;
 
     /*
@@ -37,8 +38,8 @@ public class Populacao {
      */
     public Populacao(int tamanhoPop, int tamanhoCromo) {
         this.tamanhoPopulacao = tamanhoPop;
-        this.individuos = new ArrayList<>(tamanhoPopulacao);
-        this.temp = new ArrayList<>(tamanhoPopulacao);
+        this.individuos = new Cromossomo[tamanhoPopulacao];
+        this.temp = new Cromossomo[tamanhoPopulacao];
         //inicializa a lista de individuos
         initPopulacao(tamanhoCromo);
         this.crossover = TipoCrossover.UM_PONTO;
@@ -48,10 +49,8 @@ public class Populacao {
     //passo o tamanho que cada cromossomo vai ter. Esse parametro eh passado 
     //no construtor. Criacao aleatoria da populacao
     private void initPopulacao(int tamanhoIndividuo) {
-        int i = 0;
-        while (i < getTamanhoPopulacao()) {
-            individuos.add(new Cromossomo(tamanhoIndividuo));
-            i++;
+        for (int i = 0; i < individuos.length; i++) {
+            individuos[i] = new Cromossomo(tamanhoIndividuo);
         }
     }
 
@@ -59,15 +58,17 @@ public class Populacao {
         Random random = new Random();
         double chanceCruzamento = random.nextFloat();
 
+        int indice = 0;
+
         if (isElitismo()) {
-            Cromossomo elite = elitismo();
-            temp.add(elite);
+            temp[indice] = elitismo();
+            indice++;
         }
         /**
          * Aqui acontece o cruzamento mediante a taxa de cruzamento e caso a
          * mesma nao ocorra os pais vao pra proxima geracao
          */
-        while (temp.size() < tamanhoPopulacao) {
+        while (temp.length < tamanhoPopulacao) {
             Casal casal = casamento();
             Cromossomo[] nextGeneration;
             if (chanceCruzamento < txCruzamento) {
@@ -77,17 +78,15 @@ public class Populacao {
             }
 
             for (Cromossomo i : nextGeneration) {
-                if (temp.size() < tamanhoPopulacao) {
-                    temp.add(i);
+                if (temp.length < tamanhoPopulacao) {
+                    temp[indice] = i;
+                    indice++;
                 } else {
                     break;
                 }
             }
         }
-
-        individuos.clear();
-        individuos.addAll(temp);
-        temp.clear();
+        individuos = temp.clone();
 
     }
 
@@ -105,27 +104,25 @@ public class Populacao {
     private Cromossomo elitismo() {
         Cromossomo maisApto = null;
         double valor = Float.MIN_VALUE;
-        Iterator<Cromossomo> iterator = individuos.iterator();
-
-        while (iterator.hasNext()) {
-            Cromossomo elite = iterator.next();
-            if (elite.getFitness() > valor) {
-                valor = elite.getFitness();
-                maisApto = elite;
+        
+        for (Cromossomo individuo : individuos) {
+            if(individuo.getFitness() > valor) {
+                valor = individuo.getFitness();
+                maisApto = individuo;
             }
         }
-        //individuos.remove(maisApto); não mais remover pra poder fazer o cruzamento
+        
         return maisApto;
     }
 
     private Cromossomo torneio(int n) {
-        if (n < 1 && n > individuos.size()) {
+        if (n < 1 && n > individuos.length) {
             //criar um mecanismo pra evitar esse erro
             System.err.println("Numero de competidores fora da faixa válida!");
         }
 
-        Cromossomo[] temporario = new Cromossomo[individuos.size()];
-        individuos.toArray(temporario);
+        Cromossomo[] temporario;
+        temporario = individuos.clone();
 
         Cromossomo[] competidores = new Cromossomo[n];
         int[] numeroCompetidores = new int[n];
@@ -134,7 +131,7 @@ public class Populacao {
             boolean repete;
             do {
                 repete = false;
-                numeroCompetidores[i] = 1 + random.nextInt(individuos.size() - 1);
+                numeroCompetidores[i] = 1 + random.nextInt(individuos.length - 1);
                 for (int j = 0; j < i; j++) {
                     if (numeroCompetidores[i] == numeroCompetidores[j]) {
                         repete = true;
@@ -160,74 +157,34 @@ public class Populacao {
         return maisApto;
     }
 
-    //Versao antiga da roleta
-//    private Cromossomo roleta() {
-//        Cromossomo Cromossomo = new Cromossomo(individuos.size());
-//        List<Cromossomo> lista = new ArrayList<>(individuos);
-//        Collections.sort(lista);
-//        Map<Integer, Cromossomo> mapa = new HashMap();
-//
-//        for (int i = 0; i < lista.size(); i++) {
-//            mapa.put(i + 1, lista.get(i));
-//        }
-//
-//        int somatorioClassificacao = 0;
-//
-//        for (Map.Entry<Integer, Cromossomo> i : mapa.entrySet()) {
-//            somatorioClassificacao += i.getKey();
-//        }
-//
-//        Random random = new Random();
-//        int sorteio = random.nextInt(somatorioClassificacao) + 1;
-//        int soma = 0;
-//
-//        for (Map.Entry<Integer, Cromossomo> k : mapa.entrySet()) {
-//            Integer key = k.getKey();
-//            soma += key;
-//            Cromossomo value = k.getValue();
-//            if (soma > sorteio) {
-//                return value;
-//            }
-//
-//        }
-//
-//        return Cromossomo;
-//    }
-    
     private Cromossomo roleta() {
-        Cromossomo[] roleta = new Cromossomo[individuos.size()];
-        Iterator<Cromossomo> it = individuos.iterator();
-        
-        
+        Cromossomo[] roleta;
         double somatorio = 0;
-        double[] acumulador = new double[individuos.size()];
+        double[] acumulador = new double[individuos.length];
+        roleta = individuos.clone();
         
-        int i = 0;
-        while(i < roleta.length && it.hasNext()) {
-            roleta[i] = it.next();
-            somatorio += roleta[i].getFitness();
-            i++;
+        for (Cromossomo i : roleta) {
+            somatorio += i.getFitness();
         }
-        //somatorio = roleta[0].getFitness();
+
         acumulador[0] = roleta[0].getFitness();
-        
+
         for (int j = 1; j < roleta.length; j++) {
-            acumulador[j] = roleta[j].getFitness() + acumulador[j-1];
+            acumulador[j] = roleta[j].getFitness() + acumulador[j - 1];
         }
-        
+
         double sorteio = new Random().nextFloat() * somatorio;
-        
+
         int k = 0;
-        while(k < acumulador.length) {
-            if(sorteio < acumulador[k]){
+        while (k < acumulador.length) {
+            if (sorteio < acumulador[k]) {
                 break;
             }
             k++;
         }
         return roleta[k];
-        
+
     }
-    
 
     private Cromossomo seleciona(Selecao selecao) {
         int n = 3;
@@ -261,7 +218,7 @@ public class Populacao {
         this.crossover = crossover;
     }
 
-    public Collection<Cromossomo> getIndividuos() {
+    public Cromossomo[] getIndividuos() {
         return individuos;
     }
 
@@ -280,15 +237,14 @@ public class Populacao {
     public Cromossomo getPiorIndividuo() {
         Cromossomo pior = null;
         double valor = Float.MAX_VALUE;
-        Iterator<Cromossomo> iterator = individuos.iterator();
-
-        while (iterator.hasNext()) {
-            Cromossomo cromossomo = iterator.next();
-            if (cromossomo.getFitness() < valor) {
-                valor = cromossomo.getFitness();
-                pior = cromossomo;
+        
+        for (Cromossomo individuo : individuos) {
+            if(individuo.getFitness() < valor){
+                valor = individuo.getFitness();
+                pior = individuo;
             }
         }
+        
         return pior;
     }
 
@@ -301,7 +257,7 @@ public class Populacao {
         for (Cromossomo individuo : individuos) {
             somatorio += individuo.getFitness();
         }
-        float media = (somatorio / individuos.size());
+        float media = (somatorio / individuos.length);
         return media;
     }
 
@@ -312,7 +268,7 @@ public class Populacao {
             variancia += Math.pow(individuo.getFitness() - getMedia(), 2);
         }
 
-        float desvioPadrao = (float) Math.sqrt(variancia / (individuos.size() - 1));
+        float desvioPadrao = (float) Math.sqrt(variancia / (individuos.length - 1));
 
         return desvioPadrao;
     }

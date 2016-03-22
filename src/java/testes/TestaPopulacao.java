@@ -16,7 +16,7 @@ public class TestaPopulacao {
         Populacao p = new Populacao(50, 10);
         System.out.println(p.getSelecao());
         System.out.println(p.getCrossover());
-        System.out.println(p.getIndividuos().size());
-        System.out.println(p.getIndividuos().iterator().next().toString());
+        System.out.println(p.getIndividuos().length);
+        System.out.println(p.getIndividuos()[0].toString());
     }
 }
