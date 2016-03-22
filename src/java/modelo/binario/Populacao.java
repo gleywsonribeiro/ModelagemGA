@@ -5,13 +5,6 @@
  */
 package modelo.binario;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 /**
@@ -235,7 +228,7 @@ public class Populacao {
     }
 
     public Cromossomo getPiorIndividuo() {
-        Cromossomo pior = null;
+        Cromossomo pior = new Cromossomo(individuos[0].getTamanho());
         double valor = Float.MAX_VALUE;
         
         for (Cromossomo individuo : individuos) {

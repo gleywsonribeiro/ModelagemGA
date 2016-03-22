@@ -16,6 +16,8 @@ import modelo.binario.Cromossomo;
  */
 public class TestaCromossomo {
     public static void main(String[] args) {
+        Cromossomo novo = new Cromossomo(10);
+        System.out.println("Novo Cromossomo: " + novo);
         try {
             Cromossomo c = new Cromossomo(10);
             c.setGenes("1111111111");
