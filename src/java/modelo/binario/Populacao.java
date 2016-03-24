@@ -61,7 +61,7 @@ public class Populacao {
          * Aqui acontece o cruzamento mediante a taxa de cruzamento e caso a
          * mesma nao ocorra os pais vao pra proxima geracao
          */
-        while (temp.length < tamanhoPopulacao) {
+        while (indice < temp.length) {
             Casal casal = casamento();
             Cromossomo[] nextGeneration;
             if (chanceCruzamento < txCruzamento) {
@@ -71,7 +71,7 @@ public class Populacao {
             }
 
             for (Cromossomo i : nextGeneration) {
-                if (temp.length < tamanhoPopulacao) {
+                if (indice < tamanhoPopulacao) {
                     temp[indice] = i;
                     indice++;
                 } else {
@@ -114,8 +114,7 @@ public class Populacao {
             System.err.println("Numero de competidores fora da faixa válida!");
         }
 
-        Cromossomo[] temporario;
-        temporario = individuos.clone();
+       
 
         Cromossomo[] competidores = new Cromossomo[n];
         int[] numeroCompetidores = new int[n];
@@ -135,8 +134,7 @@ public class Populacao {
         }
 
         for (int i = 0; i < competidores.length; i++) {
-            int current = numeroCompetidores[i];
-            competidores[i] = temporario[current];
+            competidores[i] = individuos[numeroCompetidores[i]];
         }
 
         Cromossomo maisApto = null;
@@ -228,7 +226,7 @@ public class Populacao {
     }
 
     public Cromossomo getPiorIndividuo() {
-        Cromossomo pior = new Cromossomo(individuos[0].getTamanho());
+        Cromossomo pior = null;
         double valor = Float.MAX_VALUE;
         
         for (Cromossomo individuo : individuos) {
