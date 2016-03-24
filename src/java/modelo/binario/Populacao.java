@@ -253,7 +253,6 @@ public class Populacao {
     }
 
     public float getDesvioPadrao() {
-        
         float variancia = 0;
         for (Cromossomo individuo : individuos) {
             variancia += Math.pow(individuo.getFitness() - getMedia(), 2);
