@@ -21,6 +21,7 @@ public class Ag {
     private Selecao selecao;
     private TipoCrossover tipoCrossover;
     private boolean elitismo;
+    private boolean normalizacao;
     private final List<Cromossomo> pioresIndividuos;
     private final List<Cromossomo> melhoresIndividuos;
     private final List<Float> desvioPadrao;
@@ -46,6 +47,14 @@ public class Ag {
             desvioPadrao.add(p.getDesvioPadrao());
             media.add(p.getMedia());
         }
+    }
+
+    public boolean isNormalizacao() {
+        return normalizacao;
+    }
+
+    public void setNormalizacao(boolean normalizacao) {
+        this.normalizacao = normalizacao;
     }
 
     public List<Cromossomo> getPioresIndividuos() {

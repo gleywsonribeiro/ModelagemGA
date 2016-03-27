@@ -5,6 +5,7 @@
  */
 package modelo.binario;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -20,9 +21,10 @@ public class Populacao {
 
     private final int tamanhoPopulacao;
     private Cromossomo[] individuos;
+    private double[] normalizados;
+    private final Cromossomo[] temp;
     private Selecao selecao;
     private TipoCrossover crossover;
-    private final Cromossomo[] temp;
     private boolean elitismo;
 
     /*
@@ -47,6 +49,14 @@ public class Populacao {
         }
     }
 
+    public void normalize() {
+        Arrays.sort(individuos);
+        int incremento = 10;
+        for (int i = 0; i < individuos.length; i++) {
+            normalizados[i] = i + incremento;
+        }
+    }
+    
     public void geracao(float txMutacao, float txCruzamento) {
         Random random = new Random();
         double chanceCruzamento = random.nextFloat();
