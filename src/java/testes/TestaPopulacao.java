@@ -5,6 +5,8 @@
  */
 package testes;
 
+import java.util.Arrays;
+import modelo.binario.Cromossomo;
 import modelo.binario.Populacao;
 
 /**
@@ -12,23 +14,28 @@ import modelo.binario.Populacao;
  * @author Gleywson
  */
 public class TestaPopulacao {
+
     public static void main(String[] args) {
-        Populacao p = new Populacao(50, 10);
-        
-        System.out.println(p.getSelecao());
-        System.out.println(p.getCrossover());
-        System.out.println(p.getIndividuos().length);
+        Populacao p = new Populacao(4, 10);
+
         System.out.println(p.getIndividuos()[0].toString());
-        
-        System.out.println(p.getMedia());
-        System.out.println(p.getMelhorIndividuo().getFitness());
-        System.out.println(p.getDesvioPadrao());
-        System.out.println("passou aqui");
-        
-        
-//        for (int i = 0; i < 10; i++) {
-//            p.geracao(0.01f, 0.85f);
-//        }
-//        System.out.println(p.getMedia());
+        System.out.println("Fitness");
+        for (Cromossomo i : p.getIndividuos()) {
+            System.out.printf("%.4f\n", i.getFitness());
+        }
+        p.normalize();
+        System.out.println("Ordenado");
+        for (Cromossomo i : p.getIndividuos()) {
+            System.out.printf("%.4f\n", i.getFitness());
+        }
+
+        double[] valores = {1.5, 3.6, 2.4, 9.1, 7.345, 7.256, 6.34, 10.34,10.31};
+
+        Arrays.sort(valores);
+
+        for (int i = 0; i < valores.length; i++) {
+            System.out.printf("%.4f\t",valores[i]);
+        }
+
     }
 }
