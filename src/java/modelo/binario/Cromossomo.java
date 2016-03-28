@@ -172,10 +172,10 @@ public class Cromossomo implements Comparable<Cromossomo> {
     @Override
     public int compareTo(Cromossomo o) {
         if (this.getFitness() < o.getFitness()) {
-            return 1;
+            return -1;
         }
         if (this.getFitness() > o.getFitness()) {
-            return -1;
+            return 1;
         }
         return 0;
     }

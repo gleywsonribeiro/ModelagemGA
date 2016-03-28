@@ -47,6 +47,7 @@ public class AgController {
         selecoes = new HashMap();
         selecoes.put("Roleta", Selecao.ROLETA);
         selecoes.put("Torneio", Selecao.TORNEIO);
+        selecoes.put("Normalização", Selecao.NORMALIZACAO_LINEAR);
 
         crossovers = new HashMap();
         crossovers.put("Dois Pontos", TipoCrossover.DOIS_PONTOS);

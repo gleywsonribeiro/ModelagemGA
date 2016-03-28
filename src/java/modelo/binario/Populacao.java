@@ -35,6 +35,7 @@ public class Populacao {
         this.tamanhoPopulacao = tamanhoPop;
         this.individuos = new Cromossomo[tamanhoPopulacao];
         this.temp = new Cromossomo[tamanhoPopulacao];
+        this.normalizados = new double[tamanhoPopulacao];
         //inicializa a lista de individuos
         initPopulacao(tamanhoCromo);
         this.crossover = TipoCrossover.UM_PONTO;
@@ -49,13 +50,6 @@ public class Populacao {
         }
     }
 
-    public void normalize() {
-        Arrays.sort(individuos);
-        int incremento = 10;
-        for (int i = 0; i < individuos.length; i++) {
-            normalizados[i] = i + incremento;
-        }
-    }
     
     public void geracao(float txMutacao, float txCruzamento) {
         Random random = new Random();
@@ -186,10 +180,46 @@ public class Populacao {
         return roleta[k];
 
     }
+    
+    private Cromossomo normalizacao() {
+        Arrays.sort(individuos);
+        double min = individuos[0].getFitness();
+        double max = individuos[individuos.length - 1].getFitness();
+        
+        for (int i = 0; i < individuos.length; i++) {
+            normalizados[i] = min + ((max - min) / individuos.length - 1) * i;
+        }
+        //Usando metodo da roleta, so que pela normalizacao
+        double[] roleta;
+        double somatorio = 0;
+        double[] acumulador = new double[individuos.length];
+        roleta = normalizados.clone();
+        
+        for (double i : roleta) {
+            somatorio += i;
+        }
+
+        acumulador[0] = roleta[0];
+
+        for (int j = 1; j < roleta.length; j++) {
+            acumulador[j] = roleta[j] + acumulador[j - 1];
+        }
+
+        double sorteio = new Random().nextFloat() * somatorio;
+
+        int k = 0;
+        while (k < acumulador.length) {
+            if (sorteio < acumulador[k]) {
+                break;
+            }
+            k++;
+        }
+        return individuos[k];
+    }
 
     private Cromossomo seleciona(Selecao selecao) {
         int n = 3;
-        Cromossomo c;
+        Cromossomo c = null;
         switch (selecao) {
             case ROLETA:
                 c = roleta();
@@ -197,8 +227,8 @@ public class Populacao {
             case TORNEIO:
                 c = torneio(n);
                 break;
-            default:
-                c = torneio(n);
+            case NORMALIZACAO_LINEAR:
+                c = normalizacao();
         }
         return c;
     }

@@ -11,5 +11,5 @@ package modelo.binario;
  * @author Gleywson
  */
 public enum Selecao {
-    TORNEIO, ROLETA;
+    TORNEIO, ROLETA, NORMALIZACAO_LINEAR;
 }

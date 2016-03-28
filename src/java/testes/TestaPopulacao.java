@@ -16,19 +16,14 @@ import modelo.binario.Populacao;
 public class TestaPopulacao {
 
     public static void main(String[] args) {
-        Populacao p = new Populacao(4, 10);
+        Populacao p = new Populacao(10, 10);
 
         System.out.println(p.getIndividuos()[0].toString());
         System.out.println("Fitness");
         for (Cromossomo i : p.getIndividuos()) {
             System.out.printf("%.4f\n", i.getFitness());
         }
-        p.normalize();
-        System.out.println("Ordenado");
-        for (Cromossomo i : p.getIndividuos()) {
-            System.out.printf("%.4f\n", i.getFitness());
-        }
-
+        
         double[] valores = {1.5, 3.6, 2.4, 9.1, 7.345, 7.256, 6.34, 10.34,10.31};
 
         Arrays.sort(valores);

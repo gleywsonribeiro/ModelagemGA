@@ -56,10 +56,7 @@
 
                             <h:outputLabel value="Elitismo:" style="float: right"/>
                             <p:selectBooleanCheckbox value="#{agController.ag.elitismo}"/>
-                            
-                            <h:outputLabel value="Normalização:" style="float: right"/>
-                            <p:selectBooleanCheckbox value="#{agController.ag.normalizacao}"/>
-
+             
                             <p:commandButton actionListener="#{agController.execute()}" value="Executar" ajax="false"/>
                         </h:panelGrid>
 
