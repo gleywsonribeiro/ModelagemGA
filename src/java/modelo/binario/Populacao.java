@@ -182,17 +182,18 @@ public class Populacao {
     }
     
     private Cromossomo normalizacao() {
-        Arrays.sort(individuos);
-        double min = individuos[0].getFitness();
-        double max = individuos[individuos.length - 1].getFitness();
+        Cromossomo[] temporario = individuos.clone();
+        Arrays.sort(temporario);
+        double min = 10;//temporario[0].getFitness();
+        double max = 500;//temporario[temporario.length - 1].getFitness();
         
-        for (int i = 0; i < individuos.length; i++) {
-            normalizados[i] = min + ((max - min) / individuos.length - 1) * i;
+        for (int i = 0; i < temporario.length; i++) {
+            normalizados[i] = min + ((max - min) / temporario.length - 1) * i;
         }
         //Usando metodo da roleta, so que pela normalizacao
         double[] roleta;
         double somatorio = 0;
-        double[] acumulador = new double[individuos.length];
+        double[] acumulador = new double[temporario.length];
         roleta = normalizados.clone();
         
         for (double i : roleta) {
@@ -214,7 +215,7 @@ public class Populacao {
             }
             k++;
         }
-        return individuos[k];
+        return temporario[k];
     }
 
     private Cromossomo seleciona(Selecao selecao) {

@@ -33,6 +33,7 @@ import org.primefaces.model.chart.LineChartModel;
 public class AgController {
 
     private Ag ag;
+    private int n_simulacoes;
     private long tempoExecucao;
 
     private final LineChartModel model;
@@ -66,6 +67,15 @@ public class AgController {
         model = new LineChartModel();
     }
 
+    public void setN_simulacoes(int n_simulacoes) {
+        this.n_simulacoes = n_simulacoes;
+    }
+
+    public int getN_simulacoes() {
+        return n_simulacoes;
+    }
+
+    
     public LineChartModel getModel() {
         return model;
     }
@@ -85,7 +95,7 @@ public class AgController {
     public void setAg(Ag ag) {
         this.ag = ag;
     }
-
+ 
     public float getTempoExecucao() {
         return tempoExecucao;
     }
