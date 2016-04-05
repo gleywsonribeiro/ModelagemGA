@@ -5,6 +5,8 @@
  */
 package modelo.binario;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,10 @@ public class Ag {
         p.setElitismo(elitismo);
         p.setSelecao(selecao);
         p.setCrossover(tipoCrossover);
+        
+        File file = new File("esquemas.txt");
+        FileWriter fw = null;
+        
         
         for(int i = 0; i <= numeroGeracoes; i++) {
             p.geracao(taxaMutacao, taxaCruzamento);
