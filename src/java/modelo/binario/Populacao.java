@@ -53,8 +53,7 @@ public class Populacao {
     
     public void geracao(float txMutacao, float txCruzamento) {
         Random random = new Random();
-        double chanceCruzamento = random.nextFloat();
-
+ 
         int indice = 0;
 
         if (isElitismo()) {
@@ -68,6 +67,7 @@ public class Populacao {
         while (indice < temp.length) {
             Casal casal = casamento();
             Cromossomo[] nextGeneration;
+            double chanceCruzamento = random.nextFloat();
             if (chanceCruzamento < txCruzamento) {
                 nextGeneration = casal.cruza(txMutacao);
             } else {
