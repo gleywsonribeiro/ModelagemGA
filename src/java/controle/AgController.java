@@ -33,7 +33,6 @@ import org.primefaces.model.chart.LineChartModel;
 public class AgController {
 
     private Ag ag;
-    private int n_simulacoes;
     private long tempoExecucao;
 
     private final LineChartModel model;
@@ -65,14 +64,6 @@ public class AgController {
         ag.setTipoCrossover(TipoCrossover.UM_PONTO);
 
         model = new LineChartModel();
-    }
-
-    public void setN_simulacoes(int n_simulacoes) {
-        this.n_simulacoes = n_simulacoes;
-    }
-
-    public int getN_simulacoes() {
-        return n_simulacoes;
     }
 
     
